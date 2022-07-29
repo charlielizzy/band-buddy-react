@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import {saveAs} from "file-saver";
 const MicRecorder = require('mic-recorder-to-mp3');
 
 export const RecordingButton = () => {
@@ -6,52 +7,45 @@ export const RecordingButton = () => {
     const [filePath, setFilePath] = useState();
     const [audioPlaying, setAudioPlaying] = useState(false);
 
-    let file;
-    // let player;
-    const recorder = new MicRecorder({
+    const tenSecRecord = () => {
+			const recorder = new MicRecorder({
         bitRate: 128
       });
 
-    const tenSecRecord =  () => {
-        recorder.start().then(() => {
-            setRecording(true);
-              }).catch((e) => {
-                console.error(e);
-              });
+      recorder.start().then(() => {
+        setRecording(true);
         setTimeout(() => {
-                recorder
-                .stop()
-                .getMp3().then(([buffer, blob]) => {
-                   file = new File(buffer, 'audio-recording.mp3', {
-                    type: blob.type,
-                    lastModified: Date.now()
-                  }); 
-                // player = new Audio(URL.createObjectURL(file));
-                setFilePath(URL.createObjectURL(file));
+          recorder
+          .stop()
+          .getMp3().then(([buffer, blob]) => {
+              const file = new File(buffer, 'audio-recording.mp3', { type: blob.type, lastModified: Date.now()}); 
+              // console.log("file", file)
+              setFilePath(URL.createObjectURL(file));
+              saveAs(URL.createObjectURL(file), "audioRecording.mp3");
+            }).catch((e) => {
+              alert('We could not record your song');
+              console.log(e);
+            });
+            setRecording(false);
+        }, 10000)
+      }).catch((e) => {
+        console.error(e);
+      });
+    }
 
-                //   player.play();
-                 
-                }).catch((e) => {
-                  alert('We could not record your song');
-                  console.log(e);
-                });
-                    setRecording(false);
-                  }, 10000)
-        
-            }
-    console.log("recording", recording)
+      
     
     const playRecordedFile = () => {
-        const player = new Audio(filePath);
-        player.play();
-        setAudioPlaying(true);
+      const player = new Audio(filePath);
+      player.play();
+      setAudioPlaying(true);
     }
 
     return(
-        <div>
-            <button disabled={recording} onClick={() => tenSecRecord()}>{recording ? <p>Recording...</p> : <p>Click to start recording</p>}</button>
-            <button disabled={audioPlaying} onClick={() => playRecordedFile()}>Play</button>
-        </div>
+      <div>
+        <button disabled={recording} onClick={() => tenSecRecord()}>{recording ? "Recording..." : "Click to start recording"}</button>
+        <button disabled={audioPlaying} onClick={() => playRecordedFile()}>Play</button>
+      </div>
     )
 }
 

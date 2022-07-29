@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 const MicRecorder = require('mic-recorder-to-mp3');
 
 export const RecordingButton = () => {
-    const [recording, setRecording] = useState(false)
+    const [recording, setRecording] = useState(false);
+    const [filePath, setFilePath] = useState();
 
-    let player;
+    let file;
+    // let player;
     const recorder = new MicRecorder({
         bitRate: 128
       });
@@ -19,16 +21,17 @@ export const RecordingButton = () => {
                 recorder
                 .stop()
                 .getMp3().then(([buffer, blob]) => {
-                  const file = new File(buffer, 'me-at-thevoice.mp3', {
+                   file = new File(buffer, 'audio-recording.mp3', {
                     type: blob.type,
                     lastModified: Date.now()
-                  });
-                 
-                    player = new Audio(URL.createObjectURL(file));
-                  player.play();
+                  }); 
+                // player = new Audio(URL.createObjectURL(file));
+                setFilePath(URL.createObjectURL(file));
+
+                //   player.play();
                  
                 }).catch((e) => {
-                  alert('We could not retrieve your message');
+                  alert('We could not record your song');
                   console.log(e);
                 });
                     setRecording(false);
@@ -37,14 +40,15 @@ export const RecordingButton = () => {
             }
     console.log("recording", recording)
     
-    // const playRecordedFile = () => {
-    //     player.play();
-    // }
+    const playRecordedFile = () => {
+        const player = new Audio(filePath);
+        player.play();
+    }
 
     return(
         <div>
-            <button onClick={() => tenSecRecord()}>{recording ? <p>Recording...</p> : <p>Click to start recording</p>}</button>
-            {/* <button onClick={() => playRecordedFile()}>Play</button> */}
+            <button disabled={recording} onClick={() => tenSecRecord()}>{recording ? <p>Recording...</p> : <p>Click to start recording</p>}</button>
+            <button onClick={() => playRecordedFile()}>Play</button>
         </div>
     )
 }

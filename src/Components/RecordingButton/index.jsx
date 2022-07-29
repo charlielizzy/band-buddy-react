@@ -4,6 +4,7 @@ const MicRecorder = require('mic-recorder-to-mp3');
 export const RecordingButton = () => {
     const [recording, setRecording] = useState(false);
     const [filePath, setFilePath] = useState();
+    const [audioPlaying, setAudioPlaying] = useState(false);
 
     let file;
     // let player;
@@ -43,12 +44,13 @@ export const RecordingButton = () => {
     const playRecordedFile = () => {
         const player = new Audio(filePath);
         player.play();
+        setAudioPlaying(true);
     }
 
     return(
         <div>
             <button disabled={recording} onClick={() => tenSecRecord()}>{recording ? <p>Recording...</p> : <p>Click to start recording</p>}</button>
-            <button onClick={() => playRecordedFile()}>Play</button>
+            <button disabled={audioPlaying} onClick={() => playRecordedFile()}>Play</button>
         </div>
     )
 }

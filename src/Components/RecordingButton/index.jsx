@@ -26,7 +26,7 @@ export const RecordingButton = () => {
               // saveAs(URL.createObjectURL(file), "audioRecording.mp3");
               const formData = new FormData(); 
               formData.append('file', file);
-              fetch('http://localhost:4000/audio_info', {
+              fetch(`${process.env.REACT_APP_BAND_BUDDY_API_URL}/audio_info`, {
                 method: 'post',
                 body: formData,
               })

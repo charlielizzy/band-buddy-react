@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-// import {saveAs} from "file-saver";
-const MicRecorder = require('mic-recorder-to-mp3');
+import MicRecorder from 'mic-recorder-to-mp3';
 
 export const RecordingButton = () => {
     const [recording, setRecording] = useState(false);
@@ -23,7 +22,6 @@ export const RecordingButton = () => {
           .getMp3().then(([buffer, blob]) => {
               const file = new File(buffer, 'audio-recording.mp3', { type: blob.type, lastModified: Date.now()}); 
               setFilePath(URL.createObjectURL(file));
-              // saveAs(URL.createObjectURL(file), "audioRecording.mp3");
               const formData = new FormData(); 
               formData.append('file', file);
               fetch(`${process.env.REACT_APP_BAND_BUDDY_API_URL}/audio_info`, {

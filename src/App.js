@@ -1,15 +1,15 @@
-import "./App.css";
-import { RecordingButton } from "./Components/RecordingButton";
+import './App.css'
+import { RecordingButton } from './Components/RecordingButton'
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>Band Buddy React Applicaton</p>
+    <body className="bg-gradient-to-r from-green-300 via-blue-500 to-purple-600 w-screen h-screen">
+      <div className="text-align text-center text-3xl text-white font-bold underline">
+        <p>Band Buddy React Application</p>
         <RecordingButton />
-      </header>
-    </div>
-  );
+      </div>
+    </body>
+  )
 }
 
-export default App;
+export default App

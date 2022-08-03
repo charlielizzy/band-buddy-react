@@ -1,11 +1,8 @@
 import React, { useState } from 'react';
 import MicRecorder from 'mic-recorder-to-mp3';
 
-export const RecordingButton = () => {
+export const RecordingButton = (props) => {
     const [recording, setRecording] = useState(false);
-    const [album, setAlbum] = useState("");
-    const [artist, setArtist] = useState("");
-    const [title, setTitle] = useState("")
 
     const tenSecRecord = () => {
 			const recorder = new MicRecorder({
@@ -28,10 +25,17 @@ export const RecordingButton = () => {
               .then(async (res) => {
                 const { result } = await res.json();
                 console.log("result", result)
-                const { album, artist, title} = result;
-                setAlbum(album);
-                setArtist(artist);
-                setTitle(title);
+                if (result === null) {
+                  props.setSongNotFound(true)
+                } else {
+                  const { album, artist, title} = result;
+                  props.setAlbum(album);
+                props.setArtist(artist);
+                props.setTitle(title);
+                
+                }
+                
+               
               })
               .catch((err) => ('Error occurred: we could not locate a song', err))
             }).catch((e) => {
@@ -47,8 +51,7 @@ export const RecordingButton = () => {
 
     return(
       <div>
-        <button id="record-button" className="tracking-wider"disabled={recording} onClick={() => tenSecRecord()}>{recording ? "Recording..." : "Click to start recording"}</button>
-        { title !== "" ? <p id="song-info">This song is called {title} and is performed by {artist} on the album {album}</p> : null}
+        <button data-automation="record-button" className="tracking-wider"disabled={recording} onClick={() => tenSecRecord()}>{recording ? "Recording..." : "Click to start recording"}</button>
       </div>
     )
 }

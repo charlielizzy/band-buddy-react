@@ -47,7 +47,7 @@ export const RecordingButton = () => {
 
     return(
       <div>
-        <button disabled={recording} onClick={() => tenSecRecord()}>{recording ? "Recording..." : "Click to start recording"}</button>
+        <button className="tracking-wider"disabled={recording} onClick={() => tenSecRecord()}>{recording ? "Recording..." : "Click to start recording"}</button>
         { title !== "" ? <p>This song is called {title} and is performed by {artist} on the album {album}</p> : null}
       </div>
     )

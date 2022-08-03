@@ -25,4 +25,25 @@ describe('happy-path', () => {
     cy.tick(11000)
     cy.get('[id="record-button"]').should('not.be.disabled')
   })
+  it.only('should return song name, artist and album', () => {
+    cy.clock()
+    cy.visit('http://localhost:3000')
+    cy.get('[id="record-button"]').click()
+    cy.tick(10001)
+    cy.intercept('POST', 'http://localhost:4000/audio_info', (req) => {
+      req.reply({
+        result: {
+          title: "I Think We're Alone Now",
+          artist: 'Tiffany',
+          album: 'Best Pride Music',
+        },
+      })
+    }).as('fetchAudioData')
+
+    cy.wait('@fetchAudioData')
+
+    cy.get('[id="song-info"]').contains(
+      "This song is called I Think We're Alone Now"
+    )
+  })
 })

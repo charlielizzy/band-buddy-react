@@ -1,8 +1,11 @@
+
 import './App.css'
 import { SongCard } from './Components/SongCard'
 import { RecordingButton } from './Components/RecordingButton'
 import { SongNotFound } from './Components/SongNotFound'
 import React, { useState } from 'react'
+
+
 
 function App() {
   const [title, setTitle] = useState('')
@@ -10,6 +13,7 @@ function App() {
   const [artist, setArtist] = useState('')
   const [songNotFound, setSongNotFound] = useState(false)
   return (
+
     <body className="bg-gradient-to-r from-green-300 via-blue-500 to-purple-600 w-screen h-screen">
       <div className="w-fit">
         <div className="tracking-wider ml-5 p-3 bg-gray-900 text-align rounded-lg text-center w-60 text-3xl text-white font-bold underline">

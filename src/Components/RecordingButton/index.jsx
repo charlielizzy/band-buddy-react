@@ -35,7 +35,7 @@ export const RecordingButton = (props) => {
                 
                 }
                 
-               
+  
               })
               .catch((err) => ('Error occurred: we could not locate a song', err))
             }).catch((e) => {
@@ -52,6 +52,7 @@ export const RecordingButton = (props) => {
     return(
       <div>
         <button data-automation="record-button" className="tracking-wider"disabled={recording} onClick={() => tenSecRecord()}>{recording ? "Recording..." : "Click to start recording"}</button>
+
       </div>
     )
 }

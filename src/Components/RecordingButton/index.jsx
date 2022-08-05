@@ -10,6 +10,12 @@ export const RecordingButton = (props) => {
       });
 
       recorder.start().then(() => {
+        props.setCardState("songCard");
+        props.setAlbum("");
+                props.setArtist("");
+                props.setTitle("");
+                props.setArtwork("");
+props.setSongNotFound(false);
         setRecording(true);
         setTimeout(() => {
           recorder
@@ -28,10 +34,13 @@ export const RecordingButton = (props) => {
                 if (result === null) {
                   props.setSongNotFound(true)
                 } else {
-                  const { album, artist, title} = result;
+                  const { album, artist, title, } = result;
+                  const artwork = result.spotify.album.images[0].url
+                  console.log("artwork", artwork)
                   props.setAlbum(album);
                 props.setArtist(artist);
                 props.setTitle(title);
+                props.setArtwork(artwork)
                 
                 }
                 

@@ -48,7 +48,10 @@ export const RecordingButton = (props) => {
                 }
 
               })
-              .catch((err) => {console.log('Error occurred: API fail', err); props.setAPIError(true)})
+              .catch((err) => {
+                console.log('Error occurred: API fail', err); 
+                props.setAPIError(true)
+              })
             }).catch((e) => {
               alert('Recording failed');
               console.log(e);

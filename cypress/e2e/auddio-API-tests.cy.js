@@ -2,6 +2,7 @@ describe('happy-path', () => {
   describe('intial setup of app when loaded', () => {
     beforeEach(() => {
       cy.visit('http://localhost:3000')
+      cy.clock()
     })
 
     it('text in button should change to recording once clicked', () => {
@@ -16,7 +17,6 @@ describe('happy-path', () => {
     })
 
     it('after 10 seconds text should change back', () => {
-      cy.clock()
       cy.get('[data-automation="record-button"]').click()
       cy.get('[data-automation="record-button"]').contains('Recording...')
       cy.tick(11000)
@@ -28,29 +28,30 @@ describe('happy-path', () => {
       cy.get('[data-automation="record-button"]').should('be.disabled')
     })
     it('record button should be reenabled after 10 seconds of being disabled', () => {
-      cy.clock()
       cy.get('[data-automation="record-button"]').click()
       cy.get('[data-automation="record-button"]').should('be.disabled')
       cy.tick(11000)
       cy.get('[data-automation="record-button"]').should('not.be.disabled')
     })
+  })
+})
 
-    it('should return songNotFound if result is equal to null and menuBar should not be visible', () => {
-      cy.clock()
-      cy.visit('http://localhost:3000')
-      cy.intercept('POST', 'http://localhost:3001/audio_info', (req) => {
-        req.reply({
-          result: null,
-        })
-      }).as('fetchAudioData')
-      cy.get('[data-automation="record-button"]').click()
-      cy.tick(11000)
-      cy.wait('@fetchAudioData')
-      cy.get('[data-automation="songNotFound"]').contains(
-        'We were unable to identify your song. Please try again'
-      )
-      cy.get('[data-automation="menuBar"]').should('not.exist')
-    })
+describe('song not found', () => {
+  it('should return songNotFound if result is equal to null and menuBar should not be visible', () => {
+    cy.clock()
+    cy.visit('http://localhost:3000')
+    cy.intercept('POST', 'http://localhost:3001/audio_info', (req) => {
+      req.reply({
+        result: null,
+      })
+    }).as('fetchAudioData')
+    cy.get('[data-automation="record-button"]').click()
+    cy.tick(11000)
+    cy.wait('@fetchAudioData')
+    cy.get('[data-automation="songNotFound"]').contains(
+      'We were unable to identify your song. Please try again'
+    )
+    cy.get('[data-automation="menuBar"]').should('not.exist')
   })
 })
 
@@ -76,26 +77,22 @@ describe('API SUCCESS', () => {
     }).as('fetchAudioData')
     cy.clock()
     cy.visit('http://localhost:3000')
+    cy.get('[data-automation="record-button"]').click()
+    cy.tick(11000)
   })
 
   it('should return song name, artist and album', () => {
-    cy.get('[data-automation="record-button"]').click()
-    cy.tick(11000)
     cy.wait('@fetchAudioData')
     cy.get('[data-automation="songCard"]').contains("I Think We're Alone Now")
   })
 
   it('should only show either songCard or songNotFoundCard', () => {
-    cy.get('[data-automation="record-button"]').click()
-    cy.tick(11000)
     cy.wait('@fetchAudioData')
     cy.get('[data-automation="songCard"]').contains(" I Think We're Alone Now")
     cy.get('[data-automation="songNotFoundCard"]').should('not.exist')
   })
 
   it('should clear card when recording button is pressed again', () => {
-    cy.get('[data-automation="record-button"]').click()
-    cy.tick(11000)
     cy.wait('@fetchAudioData')
     cy.get('[data-automation="songCard"]').contains(" I Think We're Alone Now")
     cy.get('[data-automation="record-button"]').click()
@@ -104,16 +101,12 @@ describe('API SUCCESS', () => {
   })
 
   it('should change to the gig tab when artist button is clicked', () => {
-    cy.get('[data-automation="record-button"]').click()
-    cy.tick(11000)
     cy.wait('@fetchAudioData')
     cy.get('[data-automation="gigCardButton"]').click()
     cy.get('[data-automation="gigCard"]').contains('Upcoming shows')
   })
 
   it('should clear song card if next song is not found', () => {
-    cy.get('[data-automation="record-button"]').click()
-    cy.tick(11000)
     cy.wait('@fetchAudioData')
     cy.get('[data-automation="songCard"]').contains(" I Think We're Alone Now")
     cy.intercept('POST', 'http://localhost:3001/audio_info', (req) => {
@@ -124,7 +117,6 @@ describe('API SUCCESS', () => {
     cy.get('[data-automation="record-button"]').click()
     cy.tick(11000)
     cy.wait('@fetchAudioData')
-
     cy.get('[data-automation="songCard"]').should('not.exist')
     cy.get('[data-automation="songNotFoundCard"]').should('not.exist')
     cy.tick(11000)
@@ -132,8 +124,6 @@ describe('API SUCCESS', () => {
     cy.get('[data-automation="songNotFound"]').should('exist')
   })
   it('should change to the artist tab when artist button is clicked', () => {
-    cy.get('[data-automation="record-button"]').click()
-    cy.tick(11000)
     cy.wait('@fetchAudioData')
     cy.get('[data-automation="artistCardButton"]').click()
     cy.get('[data-automation="artistCard"]').contains('Top Tracks')
@@ -142,10 +132,14 @@ describe('API SUCCESS', () => {
 
 describe('API FAILURE', () => {
   it('should return an error message if the API call is unsuccessful', () => {
+    cy.clock()
     cy.intercept('POST', 'http://localhost:3001/audio_info', {
       statusCode: 500,
-    })
+    }).as('fetchAudioData')
     cy.visit('http://localhost:3000')
-    cy.get('[data-automation="apiCall"]').should('exist')
+    cy.get('[data-automation="record-button"]').click()
+    cy.tick(11000)
+    cy.wait('@fetchAudioData')
+    cy.get('[data-automation="apiError"]').should('exist')
   })
 })

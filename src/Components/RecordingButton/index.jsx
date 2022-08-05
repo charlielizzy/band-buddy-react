@@ -46,6 +46,7 @@ export const RecordingButton = (props) => {
                   props.setArtwork(artwork)   
                   // props.setSpotifyID(spotifyID)             
                 }
+
               })
               .catch((err) => {console.log('Error occurred: API fail', err); props.setAPIError(true)})
             }).catch((e) => {

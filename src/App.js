@@ -1,3 +1,4 @@
+
 import './App.css'
 import { SongCard } from './Components/SongCard'
 import { ArtistCard } from './Components/ArtistCard'
@@ -7,6 +8,7 @@ import { RecordingButton } from './Components/RecordingButton'
 import { SongNotFound } from './Components/SongNotFound'
 import { Menu } from './Components/Menu'
 import React, { useState } from 'react'
+
 
 function App() {
   const [title, setTitle] = useState('')
@@ -61,6 +63,7 @@ function App() {
         ) : null}
       </div>
     </div>
+
   )
 }
 

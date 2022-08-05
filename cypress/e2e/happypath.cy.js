@@ -25,29 +25,38 @@ describe('happy-path', () => {
     cy.tick(11000)
     cy.get('[data-automation="record-button"]').should('not.be.disabled')
   })
-  it.only('should return song name, artist and album', () => {
+  it('should return song name, artist and album', () => {
     cy.clock()
     cy.visit('http://localhost:3000')
     cy.get('[data-automation="record-button"]').click()
-    cy.tick(10001)
-    cy.intercept('POST', 'http://localhost:4000/audio_info', (req) => {
+    cy.tick(11000)
+    cy.intercept('POST', 'http://localhost:3001/audio_info', (req) => {
       req.reply({
         result: {
           title: "I Think We're Alone Now",
           artist: 'Tiffany',
           album: 'Best Pride Music',
+          spotify: {
+            album: {
+              images: [
+                {
+                  url: 'https://i.scdn.co/image/ab67616d0000b27345ec2531f00be5f33074d858',
+                },
+              ],
+            },
+          },
         },
       })
     }).as('fetchAudioData')
     cy.wait('@fetchAudioData')
     cy.get('[data-automation="songCard"]').contains(" I Think We're Alone Now")
   })
-  it('should return songNotFound if result is equal to null', () => {
+  it.only('should return songNotFound if result is equal to null', () => {
     cy.clock()
     cy.visit('http://localhost:3000')
     cy.get('[data-automation="record-button"]').click()
-    cy.tick(10001)
-    cy.intercept('POST', 'http://localhost:4000/audio_info', (req) => {
+    cy.tick(11000)
+    cy.intercept('POST', 'http://localhost:3001/audio_info', (req) => {
       req.reply({
         result: null,
       })
@@ -61,13 +70,22 @@ describe('happy-path', () => {
     cy.clock()
     cy.visit('http://localhost:3000')
     cy.get('[data-automation="record-button"]').click()
-    cy.tick(10001)
-    cy.intercept('POST', 'http://localhost:4000/audio_info', (req) => {
+    cy.tick(11000)
+    cy.intercept('POST', 'http://localhost:3001/audio_info', (req) => {
       req.reply({
         result: {
           title: "I Think We're Alone Now",
           artist: 'Tiffany',
           album: 'Best Pride Music',
+          spotify: {
+            album: {
+              images: [
+                {
+                  url: 'https://i.scdn.co/image/ab67616d0000b27345ec2531f00be5f33074d858',
+                },
+              ],
+            },
+          },
         },
       })
     }).as('fetchAudioData')
@@ -79,13 +97,22 @@ describe('happy-path', () => {
     cy.clock()
     cy.visit('http://localhost:3000')
     cy.get('[data-automation="record-button"]').click()
-    cy.tick(10001)
-    cy.intercept('POST', 'http://localhost:4000/audio_info', (req) => {
+    cy.tick(11000)
+    cy.intercept('POST', 'http://localhost:3001/audio_info', (req) => {
       req.reply({
         result: {
           title: "I Think We're Alone Now",
           artist: 'Tiffany',
           album: 'Best Pride Music',
+          spotify: {
+            album: {
+              images: [
+                {
+                  url: 'https://i.scdn.co/image/ab67616d0000b27345ec2531f00be5f33074d858',
+                },
+              ],
+            },
+          },
         },
       })
     }).as('fetchAudioData')
@@ -99,13 +126,22 @@ describe('happy-path', () => {
     cy.clock()
     cy.visit('http://localhost:3000')
     cy.get('[data-automation="record-button"]').click()
-    cy.tick(10001)
-    cy.intercept('POST', 'http://localhost:4000/audio_info', (req) => {
+    cy.tick(11000)
+    cy.intercept('POST', 'http://localhost:3001/audio_info', (req) => {
       req.reply({
         result: {
           title: "I Think We're Alone Now",
           artist: 'Tiffany',
           album: 'Best Pride Music',
+          spotify: {
+            album: {
+              images: [
+                {
+                  url: 'https://i.scdn.co/image/ab67616d0000b27345ec2531f00be5f33074d858',
+                },
+              ],
+            },
+          },
         },
       })
     }).as('fetchAudioData')
@@ -114,8 +150,8 @@ describe('happy-path', () => {
     cy.get('[data-automation="record-button"]').click()
     cy.get('[data-automation="songCard"]').should('not.exist')
     cy.get('[data-automation="songNotFoundCard"]').should('not.exist')
-    cy.tick(10001)
-    cy.intercept('POST', 'http://localhost:4000/audio_info', (req) => {
+    cy.tick(11000)
+    cy.intercept('POST', 'http://localhost:3001/audio_info', (req) => {
       req.reply({
         result: null,
       })

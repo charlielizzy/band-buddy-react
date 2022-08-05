@@ -12,11 +12,13 @@ export const RecordingButton = (props) => {
       recorder.start().then(() => {
         props.setCardState("songCard");
         props.setAlbum("");
-                props.setArtist("");
-                props.setTitle("");
-                props.setArtwork("");
-props.setSongNotFound(false);
+        props.setArtist("");
+        props.setTitle("");
+        props.setArtwork("");
+        props.setSongNotFound(false);
+        // props.setSpotifyID("")
         setRecording(true);
+
         setTimeout(() => {
           recorder
           .stop()
@@ -24,7 +26,7 @@ props.setSongNotFound(false);
               const file = new File(buffer, 'audio-recording.mp3', { type: blob.type, lastModified: Date.now()}); 
               const formData = new FormData(); 
               formData.append('file', file);
-              fetch(`${process.env.REACT_APP_BAND_BUDDY_API_URL}/audio_info`, {
+               fetch(`${process.env.REACT_APP_BAND_BUDDY_API_URL}/audio_info`, {
                 method: 'post',
                 body: formData,
               })
@@ -35,20 +37,20 @@ props.setSongNotFound(false);
                   props.setSongNotFound(true)
                 } else {
                   const { album, artist, title, } = result;
-                  const artwork = result.spotify.album.images[0].url
-                  console.log("artwork", artwork)
+                  const artwork = result.spotify.album.images[0].url;
+                  // const spotifyID = result.spotify.artists[0].id;
                   props.setAlbum(album);
-                props.setArtist(artist);
-                props.setTitle(title);
-                props.setArtwork(artwork)
-                
+                  props.setArtist(artist);
+                  props.setTitle(title);
+                  props.setArtwork(artwork)   
+                  // props.setSpotifyID(spotifyID)             
                 }
-                
-  
               })
-              .catch((err) => ('Error occurred: we could not locate a song', err))
+              .catch((err) => {console.log('Error occurred: API fail', err); return (
+                <h1 data-automation="apiCall">API fail</h1>
+              )})
             }).catch((e) => {
-              alert('We could not record your song');
+              alert('Recordimg failed');
               console.log(e);
             });
             setRecording(false);

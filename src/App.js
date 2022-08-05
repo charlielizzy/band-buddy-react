@@ -14,9 +14,9 @@ function App() {
   const [artwork, setArtwork] = useState()
   const [songNotFound, setSongNotFound] = useState(false)
   const [cardState, setCardState] = useState('songCard')
+  // const [spotifyID, setSpotifyID] = useState("")
   return (
     <div className="flex flex-col items-center bg-gradient-to-r from-green-300 via-blue-500 to-purple-600 w-screen h-screen">
-      {/* <div className="w-screen flex flex-col items-center"> */}
       <div className="tracking-wider m-5 p-3 bg-gray-900 text-align rounded-lg text-center w-60 text-3xl text-white font-bold underline">
         <p>Band Buddy React Application</p>
       </div>
@@ -28,6 +28,7 @@ function App() {
           setArtwork={setArtwork}
           setSongNotFound={setSongNotFound}
           setCardState={setCardState}
+          // setSpotifyID={setSpotifyID}
         />
       </div>
       <div id="card-container">
@@ -45,14 +46,16 @@ function App() {
         ) : null}
 
         {title !== '' && cardState === 'artistCard' ? (
-          <ArtistCard artist={artist} />
+          <ArtistCard
+            artist={artist}
+            // spotifyID={spotifyID}
+          />
         ) : null}
 
         {title !== '' && cardState === 'gigCard' ? (
           <GigCard artist={artist} />
         ) : null}
       </div>
-      {/* </div> */}
     </div>
   )
 }

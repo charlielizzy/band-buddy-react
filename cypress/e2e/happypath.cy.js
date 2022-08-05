@@ -28,8 +28,6 @@ describe('happy-path', () => {
   it('should return song name, artist and album', () => {
     cy.clock()
     cy.visit('http://localhost:3000')
-    cy.get('[data-automation="record-button"]').click()
-    cy.tick(11000)
     cy.intercept('POST', 'http://localhost:3001/audio_info', (req) => {
       req.reply({
         result: {
@@ -48,19 +46,22 @@ describe('happy-path', () => {
         },
       })
     }).as('fetchAudioData')
+    cy.get('[data-automation="record-button"]').click()
+    cy.tick(11000)
     cy.wait('@fetchAudioData')
     cy.get('[data-automation="songCard"]').contains(" I Think We're Alone Now")
   })
-  it.only('should return songNotFound if result is equal to null', () => {
+  it('should return songNotFound if result is equal to null', () => {
     cy.clock()
     cy.visit('http://localhost:3000')
-    cy.get('[data-automation="record-button"]').click()
-    cy.tick(11000)
+
     cy.intercept('POST', 'http://localhost:3001/audio_info', (req) => {
       req.reply({
         result: null,
       })
     }).as('fetchAudioData')
+    cy.get('[data-automation="record-button"]').click()
+    cy.tick(11000)
     cy.wait('@fetchAudioData')
     cy.get('[data-automation="songNotFound"]').contains(
       'We were unable to identify your song. Please try again'
@@ -69,8 +70,7 @@ describe('happy-path', () => {
   it('should only show either songCard or songNotFoundCard', () => {
     cy.clock()
     cy.visit('http://localhost:3000')
-    cy.get('[data-automation="record-button"]').click()
-    cy.tick(11000)
+
     cy.intercept('POST', 'http://localhost:3001/audio_info', (req) => {
       req.reply({
         result: {
@@ -89,6 +89,8 @@ describe('happy-path', () => {
         },
       })
     }).as('fetchAudioData')
+    cy.get('[data-automation="record-button"]').click()
+    cy.tick(11000)
     cy.wait('@fetchAudioData')
     cy.get('[data-automation="songCard"]').contains(" I Think We're Alone Now")
     cy.get('[data-automation="songNotFoundCard"]').should('not.exist')
@@ -96,8 +98,6 @@ describe('happy-path', () => {
   it('should clear card when recording button is pressed again', () => {
     cy.clock()
     cy.visit('http://localhost:3000')
-    cy.get('[data-automation="record-button"]').click()
-    cy.tick(11000)
     cy.intercept('POST', 'http://localhost:3001/audio_info', (req) => {
       req.reply({
         result: {
@@ -116,6 +116,8 @@ describe('happy-path', () => {
         },
       })
     }).as('fetchAudioData')
+    cy.get('[data-automation="record-button"]').click()
+    cy.tick(11000)
     cy.wait('@fetchAudioData')
     cy.get('[data-automation="songCard"]').contains(" I Think We're Alone Now")
     cy.get('[data-automation="record-button"]').click()
@@ -125,8 +127,6 @@ describe('happy-path', () => {
   it('should clear song card if next song is not found', () => {
     cy.clock()
     cy.visit('http://localhost:3000')
-    cy.get('[data-automation="record-button"]').click()
-    cy.tick(11000)
     cy.intercept('POST', 'http://localhost:3001/audio_info', (req) => {
       req.reply({
         result: {
@@ -145,6 +145,8 @@ describe('happy-path', () => {
         },
       })
     }).as('fetchAudioData')
+    cy.get('[data-automation="record-button"]').click()
+    cy.tick(11000)
     cy.wait('@fetchAudioData')
     cy.get('[data-automation="songCard"]').contains(" I Think We're Alone Now")
     cy.get('[data-automation="record-button"]').click()

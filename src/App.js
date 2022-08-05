@@ -2,6 +2,7 @@ import './App.css'
 import { SongCard } from './Components/SongCard'
 import { ArtistCard } from './Components/ArtistCard'
 import { GigCard } from './Components/GigCard'
+import { APIError } from './Components/APIError'
 import { RecordingButton } from './Components/RecordingButton'
 import { SongNotFound } from './Components/SongNotFound'
 import { Menu } from './Components/Menu'
@@ -14,6 +15,7 @@ function App() {
   const [artwork, setArtwork] = useState()
   const [songNotFound, setSongNotFound] = useState(false)
   const [cardState, setCardState] = useState('songCard')
+  const [APIError, setAPIError] = useState(false)
   // const [spotifyID, setSpotifyID] = useState("")
   return (
     <div className="flex flex-col items-center bg-gradient-to-r from-green-300 via-blue-500 to-purple-600 w-screen h-screen">
@@ -28,10 +30,12 @@ function App() {
           setArtwork={setArtwork}
           setSongNotFound={setSongNotFound}
           setCardState={setCardState}
+          setAPIError={setAPIError}
           // setSpotifyID={setSpotifyID}
         />
       </div>
       <div id="card-container">
+        {APIError ? <APIError /> : null}
         {songNotFound ? <SongNotFound /> : null}
         {title !== '' ? (
           <Menu setCardState={setCardState} cardState={cardState} />

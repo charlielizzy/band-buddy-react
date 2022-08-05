@@ -18,6 +18,7 @@ export const RecordingButton = (props) => {
         props.setSongNotFound(false);
         // props.setSpotifyID("")
         setRecording(true);
+        props.setAPIError(false);
 
         setTimeout(() => {
           recorder
@@ -46,11 +47,9 @@ export const RecordingButton = (props) => {
                   // props.setSpotifyID(spotifyID)             
                 }
               })
-              .catch((err) => {console.log('Error occurred: API fail', err); return (
-                <h1 data-automation="apiCall">API fail</h1>
-              )})
+              .catch((err) => {console.log('Error occurred: API fail', err); props.setAPIError(true)})
             }).catch((e) => {
-              alert('Recordimg failed');
+              alert('Recording failed');
               console.log(e);
             });
             setRecording(false);

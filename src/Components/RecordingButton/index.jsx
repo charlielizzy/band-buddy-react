@@ -21,6 +21,7 @@ export const RecordingButton = (props) => {
         props.setAPIError(false);
 
         setTimeout(() => {
+          props.setLoading(true)
           recorder
           .stop()
           .getMp3().then(([buffer, blob]) => {
@@ -43,7 +44,8 @@ export const RecordingButton = (props) => {
                   props.setAlbum(album);
                   props.setArtist(artist);
                   props.setTitle(title);
-                  props.setArtwork(artwork)   
+                  props.setArtwork(artwork)
+                  props.setLoading(false)   
                   // props.setSpotifyID(spotifyID)             
                 }
 
@@ -51,14 +53,17 @@ export const RecordingButton = (props) => {
               .catch((err) => {
                 console.log('Error occurred: API fail', err); 
                 props.setAPIError(true)
+                props.setLoading(false)   
               })
             }).catch((e) => {
               alert('Recording failed');
+              props.setLoading(false)   
               console.log(e);
             });
             setRecording(false);
         }, 10000)
       }).catch((e) => {
+        props.setLoading(false)   
         console.error(e);
       });
     }

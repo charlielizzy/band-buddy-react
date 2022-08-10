@@ -1,12 +1,32 @@
 import React, { useEffect } from 'react'
 import { useLocation } from "react-router-dom";
+import { useCookies } from "react-cookie";
 
 export default function AuthCallback() {
     const location = useLocation();
+    const [cookies, setCookie] = useCookies(["accessToken"])
+
     useEffect(() => {
         const code = new URLSearchParams(location.search).get('code');
-        console.log("code", code)
+        handleCookie(code);
     }, [location])
+
+
+   const handleCookie = async (code) => {
+    const result = await fetch(`${process.env.REACT_APP_BAND_BUDDY_API_URL}/spotify-auth`, {
+        method: 'post',
+        body: JSON.stringify({code: code}),
+        headers: {
+            "Content-Type": "application/json"
+        }
+      })
+      const response = await result.json();
+      const { access_token } = response;
+      setCookie("accessToken", access_token, {
+        path: "/"
+    })
+   }
+
 return(
     <h1>Auth callback page</h1>
 )

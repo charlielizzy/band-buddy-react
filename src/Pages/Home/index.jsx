@@ -33,7 +33,6 @@ removeCookie('accessToken', {
 navigate('/')
 }
 
-console.log(cookies.accessToken !== undefined, "cookie.accessToken")
   return (
     <div className="flex flex-col items-center bg-gradient-to-r from-green-300 via-blue-500 to-purple-600 w-screen h-screen">
       

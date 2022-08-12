@@ -23,7 +23,8 @@ export default function Home() {
   const [cookies, setCookie, removeCookie] = useCookies(["accessToken"])
   let navigate = useNavigate();
 
-  // const [spotifyID, setSpotifyID] = useState("")
+  // const [spotifyArtistID, setSpotifyArtistID] = useState("")
+   // const [spotifyTrackID, setSpotifyTrackID] = useState("")
 
 const handleRemoveCookie = () => {
 removeCookie('accessToken', {
@@ -65,7 +66,8 @@ navigate('/')
           setAPIError={setAPIError}
           setLoading={setLoading}
           loading={loading}
-          // setSpotifyID={setSpotifyID}
+          // setSpotifyArtistID={setSpotifyArtistID}
+          // setSpotifyTrackID={setSpotifyTrackID}
         />
       </div> : null}
       <div id="card-container">
@@ -87,7 +89,8 @@ navigate('/')
         {title !== '' && cardState === 'artistCard' ? (
           <ArtistCard
             artist={artist}
-            // spotifyID={spotifyID}
+            // spotifyArtistID={spotifyArtistID}
+            // spotifyTrackID={spotifyTrackID}
           />
         ) : null}
 

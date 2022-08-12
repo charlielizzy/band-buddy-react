@@ -16,7 +16,8 @@ export const RecordingButton = (props) => {
         props.setTitle("");
         props.setArtwork("");
         props.setSongNotFound(false);
-        // props.setSpotifyID("")
+        // props.setSpotifyArtistID("")
+        // props.setSpotifyTrackID("")
         setRecording(true);
         props.setAPIError(false);
 
@@ -41,13 +42,15 @@ export const RecordingButton = (props) => {
                 } else {
                   const { album, artist, title, } = result;
                   const artwork = result.spotify.album.images[0].url;
-                  // const spotifyID = result.spotify.artists[0].id;
+                  // const spotifyArtistID = result.spotify.artists[0].id;
+                  // const spotifyTrackID = result.spotify.id;
                   props.setAlbum(album);
                   props.setArtist(artist);
                   props.setTitle(title);
                   props.setArtwork(artwork)
                   props.setLoading(false)   
-                  // props.setSpotifyID(spotifyID)             
+                  // props.setSpotifyArtistID(spotifyArtistID)
+                  // props.setSpotifyTrackID(spotifyTrackID)                
                 }
 
               })

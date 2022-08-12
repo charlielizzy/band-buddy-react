@@ -37,6 +37,7 @@ export const RecordingButton = (props) => {
                 console.log("result", result)
                 if (result === null) {
                   props.setSongNotFound(true)
+                  props.setLoading(false)
                 } else {
                   const { album, artist, title, } = result;
                   const artwork = result.spotify.album.images[0].url;

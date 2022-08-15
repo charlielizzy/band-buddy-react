@@ -31,7 +31,6 @@ export default function AuthCallback() {
         path: "/"
         
    })
-   console.log(cookies.accessToken, "accessToken")
    navigate(`/`)
     }
 }

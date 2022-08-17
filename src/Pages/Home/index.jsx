@@ -50,7 +50,7 @@ console.log("isAuthenticated", isAuthenticated())
         onClick={handleRemoveCookie}
       >
         Log Out
-<
+        
       </button>  : <button
         className="hover:opacity-50 bg-white p-1 rounded-lg z-10"
         data-automation="login-button"

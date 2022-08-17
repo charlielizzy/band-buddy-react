@@ -8,7 +8,9 @@ import { SongNotFound } from '../../Components/SongNotFound'
 import { Menu } from '../../Components/Menu'
 import { useCookies } from "react-cookie";
 import { useNavigate } from 'react-router-dom';
+
 import useAuth from '../../Context'
+
 
 // import AuthCallback  from '../AuthCallback'
 
@@ -22,7 +24,9 @@ export default function Home() {
   const [APIError, setAPIError] = useState(false)
   const [loading, setLoading] = useState(false)
   const [cookies, setCookie, removeCookie] = useCookies(["accessToken"])
+
   const {login, isAuthenticated} = useAuth();
+
   let navigate = useNavigate();
 
   // const [spotifyArtistID, setSpotifyArtistID] = useState("")
@@ -35,15 +39,18 @@ removeCookie('accessToken', {
 })
 navigate('/')
 }
+
 console.log("isAuthenticated", isAuthenticated())
   return (
     <div className="flex flex-col items-center bg-gradient-to-r from-green-300 via-blue-500 to-purple-600 w-screen h-screen">
       {isAuthenticated() ?  <button
+
         className="hover:opacity-50 bg-white p-1 rounded-lg z-10"
         id="logout-button"
         onClick={handleRemoveCookie}
       >
         Log Out
+<
       </button>  : <button
         className="hover:opacity-50 bg-white p-1 rounded-lg z-10"
         data-automation="login-button"

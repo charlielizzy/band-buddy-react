@@ -3,11 +3,13 @@ import React, { useState } from 'react'
 import Home from './Pages/Home'
 import AuthCallback from './Pages/AuthCallback'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+
 import { AuthProvider } from './Context'
 
 function App() {
   return (
     <AuthProvider 
+
     // value={{ authorised, setAuthorised}}
     >
     <BrowserRouter>
@@ -17,6 +19,7 @@ function App() {
      </Routes>
     </BrowserRouter>
     </AuthProvider>
+
   )
 }
 

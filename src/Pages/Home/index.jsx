@@ -9,6 +9,9 @@ import { Menu } from '../../Components/Menu'
 import { useCookies } from "react-cookie";
 import { useNavigate } from 'react-router-dom';
 
+import useAuth from '../../Context'
+
+
 // import AuthCallback  from '../AuthCallback'
 
 export default function Home() {
@@ -21,6 +24,9 @@ export default function Home() {
   const [APIError, setAPIError] = useState(false)
   const [loading, setLoading] = useState(false)
   const [cookies, setCookie, removeCookie] = useCookies(["accessToken"])
+
+  const {login, isAuthenticated} = useAuth();
+
   let navigate = useNavigate();
 
   // const [spotifyArtistID, setSpotifyArtistID] = useState("")
@@ -34,23 +40,26 @@ removeCookie('accessToken', {
 navigate('/')
 }
 
+console.log("isAuthenticated", isAuthenticated())
   return (
     <div className="flex flex-col items-center bg-gradient-to-r from-green-300 via-blue-500 to-purple-600 w-screen h-screen">
-      
-     <button
+      {isAuthenticated() ?  <button
+
         className="hover:opacity-50 bg-white p-1 rounded-lg z-10"
         id="logout-button"
         onClick={handleRemoveCookie}
       >
         Log Out
-      </button> 
-      <a
-        href={`https://accounts.spotify.com/authorize?client_id=${process.env.REACT_APP_SPOTIFY_CLIENT_ID}&response_type=code&redirect_uri=${process.env.REACT_APP_SPOTIFY_REDIRECT_URI}&scope=user-read-private%20user-read-email%20user-top-read`}
+<
+      </button>  : <button
         className="hover:opacity-50 bg-white p-1 rounded-lg z-10"
         data-automation="login-button"
+        onClick={()=>login()}
       >
         Log In
-      </a> 
+      </button> }
+    
+      
 
       <div className="tracking-wider m-5 p-3 bg-gray-900 text-align rounded-lg text-center w-60 text-3xl text-white font-bold">
         <p>Band Buddy React Application</p>

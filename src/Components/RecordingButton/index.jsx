@@ -41,7 +41,7 @@ export const RecordingButton = (props) => {
               })
                 .then(async (res) => {
                   const { result } = await res.json()
-                  console.log('result', result)
+                  // console.log('result', result)
                   if (result === null) {
                     props.setSongNotFound(true)
                     props.setLoading(false)

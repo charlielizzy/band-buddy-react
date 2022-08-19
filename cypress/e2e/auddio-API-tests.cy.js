@@ -1,7 +1,10 @@
 describe('happy-path', () => {
   describe('intial setup of app when loaded', () => {
     beforeEach(() => {
-      cy.setCookie('accessToken', 'BQC5CHoBV44kZ6UHqNqG-xr_ZCF5kSjyjMWLLg49DXjaefrdkJjAXcd9bIixal716tuTahvywvwSIxYnH0bkSE7BDli9c57DcSco2iL2E3wBuHbAoniODOaLOs-K5YqDMq9EFIKow6KIG_Uv1NgYG6Lf2UogNv14YLanQCeSCXoE_XcFdGo2YYCEFjYg9Xy0Qvexelo')
+      cy.setCookie(
+        'accessToken',
+        'BQC5CHoBV44kZ6UHqNqG-xr_ZCF5kSjyjMWLLg49DXjaefrdkJjAXcd9bIixal716tuTahvywvwSIxYnH0bkSE7BDli9c57DcSco2iL2E3wBuHbAoniODOaLOs-K5YqDMq9EFIKow6KIG_Uv1NgYG6Lf2UogNv14YLanQCeSCXoE_XcFdGo2YYCEFjYg9Xy0Qvexelo'
+      )
       cy.visit('http://localhost:3000')
       cy.clock()
     })
@@ -39,9 +42,12 @@ describe('happy-path', () => {
 
 describe('song not found', () => {
   it('should return songNotFound if result is equal to null and menuBar should not be visible', () => {
-    cy.setCookie('accessToken', 'BQC5CHoBV44kZ6UHqNqG-xr_ZCF5kSjyjMWLLg49DXjaefrdkJjAXcd9bIixal716tuTahvywvwSIxYnH0bkSE7BDli9c57DcSco2iL2E3wBuHbAoniODOaLOs-K5YqDMq9EFIKow6KIG_Uv1NgYG6Lf2UogNv14YLanQCeSCXoE_XcFdGo2YYCEFjYg9Xy0Qvexelo')
+    cy.setCookie(
+      'accessToken',
+      'BQC5CHoBV44kZ6UHqNqG-xr_ZCF5kSjyjMWLLg49DXjaefrdkJjAXcd9bIixal716tuTahvywvwSIxYnH0bkSE7BDli9c57DcSco2iL2E3wBuHbAoniODOaLOs-K5YqDMq9EFIKow6KIG_Uv1NgYG6Lf2UogNv14YLanQCeSCXoE_XcFdGo2YYCEFjYg9Xy0Qvexelo'
+    )
     cy.visit('http://localhost:3000')
-      cy.clock()
+    cy.clock()
     cy.intercept('POST', 'http://localhost:3001/audio_info', (req) => {
       req.reply({
         result: null,
@@ -59,7 +65,7 @@ describe('song not found', () => {
 
 describe('API SUCCESS', () => {
   beforeEach(() => {
-     cy.intercept('POST', 'http://localhost:3001/audio_info', (req) => {
+    cy.intercept('POST', 'http://localhost:3001/audio_info', (req) => {
       req.reply({
         result: {
           title: "I Think We're Alone Now",
@@ -78,7 +84,10 @@ describe('API SUCCESS', () => {
       })
     }).as('fetchAudioData')
     cy.clock()
-    cy.setCookie('accessToken', 'BQC5CHoBV44kZ6UHqNqG-xr_ZCF5kSjyjMWLLg49DXjaefrdkJjAXcd9bIixal716tuTahvywvwSIxYnH0bkSE7BDli9c57DcSco2iL2E3wBuHbAoniODOaLOs-K5YqDMq9EFIKow6KIG_Uv1NgYG6Lf2UogNv14YLanQCeSCXoE_XcFdGo2YYCEFjYg9Xy0Qvexelo')
+    cy.setCookie(
+      'accessToken',
+      'BQC5CHoBV44kZ6UHqNqG-xr_ZCF5kSjyjMWLLg49DXjaefrdkJjAXcd9bIixal716tuTahvywvwSIxYnH0bkSE7BDli9c57DcSco2iL2E3wBuHbAoniODOaLOs-K5YqDMq9EFIKow6KIG_Uv1NgYG6Lf2UogNv14YLanQCeSCXoE_XcFdGo2YYCEFjYg9Xy0Qvexelo'
+    )
     cy.visit('http://localhost:3000')
     cy.get('[data-automation="record-button"]').click()
     cy.tick(11000)
@@ -103,12 +112,6 @@ describe('API SUCCESS', () => {
     cy.get('[data-automation="songNotFoundCard"]').should('not.exist')
   })
 
-  it('should change to the gig tab when artist button is clicked', () => {
-    cy.wait('@fetchAudioData')
-    cy.get('[data-automation="gigCardButton"]').click()
-    cy.get('[data-automation="gigCard"]').contains('Upcoming shows')
-  })
-
   it('should clear song card if next song is not found', () => {
     cy.wait('@fetchAudioData')
     cy.get('[data-automation="songCard"]').contains(" I Think We're Alone Now")
@@ -126,10 +129,10 @@ describe('API SUCCESS', () => {
 
     cy.get('[data-automation="songNotFound"]').should('exist')
   })
-  it('should change to the artist tab when artist button is clicked', () => {
+  it('should show artist info when get more info button is clicked', () => {
     cy.wait('@fetchAudioData')
-    cy.get('[data-automation="artistCardButton"]').click()
-    cy.get('[data-automation="artistCard"]').contains('Top Tracks')
+    cy.get('[data-automation="getMoreInfo"]').click()
+    cy.get('[data-automation="extraInfoCard"]').contains('Top Tracks')
   })
 })
 
@@ -139,7 +142,10 @@ describe('API FAILURE', () => {
     cy.intercept('POST', 'http://localhost:3001/audio_info', {
       statusCode: 500,
     }).as('fetchAudioData')
-    cy.setCookie('accessToken', 'BQC5CHoBV44kZ6UHqNqG-xr_ZCF5kSjyjMWLLg49DXjaefrdkJjAXcd9bIixal716tuTahvywvwSIxYnH0bkSE7BDli9c57DcSco2iL2E3wBuHbAoniODOaLOs-K5YqDMq9EFIKow6KIG_Uv1NgYG6Lf2UogNv14YLanQCeSCXoE_XcFdGo2YYCEFjYg9Xy0Qvexelo')
+    cy.setCookie(
+      'accessToken',
+      'BQC5CHoBV44kZ6UHqNqG-xr_ZCF5kSjyjMWLLg49DXjaefrdkJjAXcd9bIixal716tuTahvywvwSIxYnH0bkSE7BDli9c57DcSco2iL2E3wBuHbAoniODOaLOs-K5YqDMq9EFIKow6KIG_Uv1NgYG6Lf2UogNv14YLanQCeSCXoE_XcFdGo2YYCEFjYg9Xy0Qvexelo'
+    )
     cy.visit('http://localhost:3000')
     cy.get('[data-automation="record-button"]').click()
     cy.tick(11000)

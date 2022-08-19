@@ -24,44 +24,48 @@ export default function Home() {
   const [loading, setLoading] = useState(false)
   const [cookies, setCookie, removeCookie] = useCookies(['accessToken'])
 
-  const { login, isAuthenticated } = useAuth()
+  const { login, isAuthenticated, logout } = useAuth()
 
   let navigate = useNavigate()
 
   // const [spotifyArtistID, setSpotifyArtistID] = useState('')
   const [spotifyTrackID, setSpotifyTrackID] = useState('')
 
-  const handleRemoveCookie = () => {
-    removeCookie('accessToken', {
-      path: '/',
-    })
-    navigate('/')
-  }
+  // const handleRemoveCookie = () => {
+  //   removeCookie('accessToken', {
+  //     path: '/',
+  //   })
+  //   navigate('/')
+  // }
 
   console.log('isAuthenticated', isAuthenticated())
   return (
     <div className="flex flex-col items-center bg-gradient-to-r from-green-300 via-blue-500 to-purple-600 w-screen h-screen">
+      <div className="tracking-wider m-5 p-3 bg-gray-900 text-align rounded-lg text-center w-60 text-3xl text-white font-bold">
+        <h1>Band Buddy</h1>
+      </div>
+
       {isAuthenticated() ? (
         <button
-          className="hover:opacity-50 bg-white p-1 rounded-lg z-10"
-          id="logout-button"
-          onClick={handleRemoveCookie}
+          className="hover:opacity-50 tracking-wider m-5 p-3 bg-gray-900 text-align rounded-lg text-center text-3xl text-white font-bold"
+          data-automation="logout-button"
+          onClick={() => logout()}
         >
           Log Out
         </button>
       ) : (
-        <button
-          className="hover:opacity-50 bg-white p-1 rounded-lg z-10"
-          data-automation="login-button"
-          onClick={() => login()}
-        >
-          Log In
-        </button>
+        <div>
+          <p>Please sign into your Spotify account to use Band Buddy</p>
+          <button
+            className="hover:opacity-50 tracking-wider m-5 p-3 bg-gray-900 text-align rounded-lg text-center text-3xl text-white font-bold"
+            data-automation="login-button"
+            onClick={() => login()}
+          >
+            Log In
+          </button>
+        </div>
       )}
 
-      <div className="tracking-wider m-5 p-3 bg-gray-900 text-align rounded-lg text-center w-60 text-3xl text-white font-bold">
-        <p>Band Buddy React Application</p>
-      </div>
       {cookies.accessToken !== undefined ? (
         <div className="m-5 p-3 bg-gray-900 text-align rounded-lg text-center w-60 text-3xl text-white">
           <RecordingButton
@@ -85,12 +89,7 @@ export default function Home() {
         {songNotFound ? <SongNotFound /> : null}
         {title !== '' ? <Menu spotifyTrackID={spotifyTrackID} /> : null}
         {title !== '' && cardState === 'songCard' ? (
-          <SongCard
-            title={title}
-            album={album}
-            artist={artist}
-            artwork={artwork}
-          />
+          <SongCard title={title} artist={artist} />
         ) : null}
 
         {/* {title !== '' && cardState === 'artistCard' ? (

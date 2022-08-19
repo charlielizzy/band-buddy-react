@@ -5,6 +5,7 @@ import useAuth from '../../Context'
 
 export default function Spotify() {
   const [data, setData] = useState(null)
+  const [topTrack, setTopTrack] = useState(null)
   const { accessToken } = useAuth()
   let { spotifyTrackID } = useParams()
 
@@ -24,7 +25,6 @@ export default function Spotify() {
     )
 
     const data = await results.json()
-
     setData({
       trackName: data.name,
       albumName: data.album.name,
@@ -46,6 +46,11 @@ export default function Spotify() {
     )
     const data = await results.json()
     console.log('data', data)
+    setTopTrack(data.tracks)
+
+    // setTopTracks({
+    //   trackName: data.
+    // })
   }
 
   return (
@@ -56,6 +61,7 @@ export default function Spotify() {
           artistName={data.artistName}
           albumName={data.albumName}
           albumArt={data.albumArt}
+          topTrackName={data.topTrack}
         />
       ) : null}
     </div>

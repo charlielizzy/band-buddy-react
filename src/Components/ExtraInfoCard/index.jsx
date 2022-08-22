@@ -3,7 +3,7 @@ import useAuth from '../../Context'
 
 export const ExtraInfoCard = (props) => {
   const { logout } = useAuth()
-  console.log('artistID', props.artistID)
+  console.log('artistID', props)
   return (
     <div
       data-automation="extra-info-card"

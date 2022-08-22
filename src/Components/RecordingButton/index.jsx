@@ -13,12 +13,9 @@ export const RecordingButton = (props) => {
       .start()
       .then(() => {
         props.setCardState('songCard')
-        props.setAlbum('')
         props.setArtist('')
         props.setTitle('')
-        props.setArtwork('')
         props.setSongNotFound(false)
-        // props.setSpotifyArtistID('')
         props.setSpotifyTrackID('')
         setRecording(true)
         props.setAPIError(false)
@@ -46,16 +43,11 @@ export const RecordingButton = (props) => {
                     props.setSongNotFound(true)
                     props.setLoading(false)
                   } else {
-                    const { album, artist, title } = result
-                    const artwork = result.spotify.album.images[0].url
-                    // const spotifyArtistID = result.spotify.artists[0].id
+                    const { artist, title } = result
                     const spotifyTrackID = result.spotify.id
-                    props.setAlbum(album)
                     props.setArtist(artist)
                     props.setTitle(title)
-                    props.setArtwork(artwork)
                     props.setLoading(false)
-                    // props.setSpotifyArtistID(spotifyArtistID)
                     props.setSpotifyTrackID(spotifyTrackID)
                   }
                 })

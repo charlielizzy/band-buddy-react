@@ -15,9 +15,7 @@ import useAuth from '../../Context'
 
 export default function Home() {
   const [title, setTitle] = useState('')
-  const [album, setAlbum] = useState('')
   const [artist, setArtist] = useState('')
-  const [artwork, setArtwork] = useState()
   const [songNotFound, setSongNotFound] = useState(false)
   const [cardState, setCardState] = useState('songCard')
   const [APIError, setAPIError] = useState(false)
@@ -70,9 +68,7 @@ export default function Home() {
         <div className="m-5 p-3 bg-gray-900 text-align rounded-lg text-center w-60 text-3xl text-white">
           <RecordingButton
             setTitle={setTitle}
-            setAlbum={setAlbum}
             setArtist={setArtist}
-            setArtwork={setArtwork}
             setSongNotFound={setSongNotFound}
             setCardState={setCardState}
             setAPIError={setAPIError}

@@ -84,7 +84,7 @@ export default function Spotify() {
         url: data.artists[1].external_urls.spotify,
       },
       {
-        name: data.artists[1].name,
+        name: data.artists[2].name,
         url: data.artists[2].external_urls.spotify,
       },
       {

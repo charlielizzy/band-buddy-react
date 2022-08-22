@@ -1,12 +1,16 @@
+import { mockUser } from '../support/commands'
+
 describe('happy-path', () => {
   describe('recording button status', () => {
     beforeEach(() => {
+      mockUser()
       cy.setCookie(
         'accessToken',
         'BQC5CHoBV44kZ6UHqNqG-xr_ZCF5kSjyjMWLLg49DXjaefrdkJjAXcd9bIixal716tuTahvywvwSIxYnH0bkSE7BDli9c57DcSco2iL2E3wBuHbAoniODOaLOs-K5YqDMq9EFIKow6KIG_Uv1NgYG6Lf2UogNv14YLanQCeSCXoE_XcFdGo2YYCEFjYg9Xy0Qvexelo'
       )
       cy.clock()
       cy.visit('http://localhost:3000')
+      cy.wait('@fetchUserData')
       cy.get('[data-automation="record-button"]').click()
     })
     it('text in button should change to recording once clicked', () => {
@@ -31,6 +35,7 @@ describe('happy-path', () => {
   })
 
   it('should return song name, artist and album', () => {
+    mockUser()
     cy.intercept('POST', 'http://localhost:3001/audio_info', (req) => {
       req.reply({
         result: {
@@ -55,12 +60,14 @@ describe('happy-path', () => {
       'BQC5CHoBV44kZ6UHqNqG-xr_ZCF5kSjyjMWLLg49DXjaefrdkJjAXcd9bIixal716tuTahvywvwSIxYnH0bkSE7BDli9c57DcSco2iL2E3wBuHbAoniODOaLOs-K5YqDMq9EFIKow6KIG_Uv1NgYG6Lf2UogNv14YLanQCeSCXoE_XcFdGo2YYCEFjYg9Xy0Qvexelo'
     )
     cy.visit('http://localhost:3000')
+    cy.wait('@fetchUserData')
     cy.get('[data-automation="record-button"]').click()
     cy.tick(11000)
     cy.get('[data-automation="songCard"]').contains(" I Think We're Alone Now")
   })
 
   it('should return songNotFound if result is equal to null', () => {
+    mockUser()
     cy.intercept('POST', 'http://localhost:3001/audio_info', (req) => {
       req.reply({
         result: null,
@@ -72,6 +79,7 @@ describe('happy-path', () => {
       'BQC5CHoBV44kZ6UHqNqG-xr_ZCF5kSjyjMWLLg49DXjaefrdkJjAXcd9bIixal716tuTahvywvwSIxYnH0bkSE7BDli9c57DcSco2iL2E3wBuHbAoniODOaLOs-K5YqDMq9EFIKow6KIG_Uv1NgYG6Lf2UogNv14YLanQCeSCXoE_XcFdGo2YYCEFjYg9Xy0Qvexelo'
     )
     cy.visit('http://localhost:3000')
+    cy.wait('@fetchUserData')
     cy.get('[data-automation="record-button"]').click()
     cy.tick(11000)
     cy.get('[data-automation="songNotFound"]').contains(
@@ -85,12 +93,14 @@ describe('happy-path', () => {
   })
 
   it('should remove cookie when logout button is clicked on homepage', () => {
+    mockUser()
     cy.setCookie(
       'accessToken',
       'BQC5CHoBV44kZ6UHqNqG-xr_ZCF5kSjyjMWLLg49DXjaefrdkJjAXcd9bIixal716tuTahvywvwSIxYnH0bkSE7BDli9c57DcSco2iL2E3wBuHbAoniODOaLOs-K5YqDMq9EFIKow6KIG_Uv1NgYG6Lf2UogNv14YLanQCeSCXoE_XcFdGo2YYCEFjYg9Xy0Qvexelo'
     )
     cy.clock()
     cy.visit('http://localhost:3000')
+    cy.wait('@fetchUserData')
     cy.get('[data-automation="logout-button"]').click()
     cy.getCookie('accessToken').should('not.exist')
   })

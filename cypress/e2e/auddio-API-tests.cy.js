@@ -1,11 +1,15 @@
+import { mockUser } from '../support/commands'
+
 describe('happy-path', () => {
   describe('intial setup of app when loaded', () => {
     beforeEach(() => {
+      mockUser()
       cy.setCookie(
         'accessToken',
         'BQC5CHoBV44kZ6UHqNqG-xr_ZCF5kSjyjMWLLg49DXjaefrdkJjAXcd9bIixal716tuTahvywvwSIxYnH0bkSE7BDli9c57DcSco2iL2E3wBuHbAoniODOaLOs-K5YqDMq9EFIKow6KIG_Uv1NgYG6Lf2UogNv14YLanQCeSCXoE_XcFdGo2YYCEFjYg9Xy0Qvexelo'
       )
       cy.visit('http://localhost:3000')
+      cy.wait('@fetchUserData')
       cy.clock()
     })
 
@@ -42,11 +46,13 @@ describe('happy-path', () => {
 
 describe('song not found', () => {
   it('should return songNotFound if result is equal to null and menuBar should not be visible', () => {
+    mockUser()
     cy.setCookie(
       'accessToken',
       'BQC5CHoBV44kZ6UHqNqG-xr_ZCF5kSjyjMWLLg49DXjaefrdkJjAXcd9bIixal716tuTahvywvwSIxYnH0bkSE7BDli9c57DcSco2iL2E3wBuHbAoniODOaLOs-K5YqDMq9EFIKow6KIG_Uv1NgYG6Lf2UogNv14YLanQCeSCXoE_XcFdGo2YYCEFjYg9Xy0Qvexelo'
     )
     cy.visit('http://localhost:3000')
+    cy.wait('@fetchUserData')
     cy.clock()
     cy.intercept('POST', 'http://localhost:3001/audio_info', (req) => {
       req.reply({
@@ -65,6 +71,7 @@ describe('song not found', () => {
 
 describe('API SUCCESS', () => {
   beforeEach(() => {
+    mockUser()
     cy.intercept('POST', 'http://localhost:3001/audio_info', (req) => {
       req.reply({
         result: {
@@ -89,6 +96,7 @@ describe('API SUCCESS', () => {
       'BQC5CHoBV44kZ6UHqNqG-xr_ZCF5kSjyjMWLLg49DXjaefrdkJjAXcd9bIixal716tuTahvywvwSIxYnH0bkSE7BDli9c57DcSco2iL2E3wBuHbAoniODOaLOs-K5YqDMq9EFIKow6KIG_Uv1NgYG6Lf2UogNv14YLanQCeSCXoE_XcFdGo2YYCEFjYg9Xy0Qvexelo'
     )
     cy.visit('http://localhost:3000')
+    cy.wait('@fetchUserData')
     cy.get('[data-automation="record-button"]').click()
     cy.tick(11000)
   })
@@ -129,15 +137,11 @@ describe('API SUCCESS', () => {
 
     cy.get('[data-automation="songNotFound"]').should('exist')
   })
-  it('should show artist info when get more info button is clicked', () => {
-    cy.wait('@fetchAudioData')
-    cy.get('[data-automation="getMoreInfo"]').click()
-    cy.get('[data-automation="extraInfoCard"]').contains('Top Tracks')
-  })
 })
 
 describe('API FAILURE', () => {
   it('should return an error message if the API call is unsuccessful', () => {
+    mockUser()
     cy.clock()
     cy.intercept('POST', 'http://localhost:3001/audio_info', {
       statusCode: 500,
@@ -147,6 +151,7 @@ describe('API FAILURE', () => {
       'BQC5CHoBV44kZ6UHqNqG-xr_ZCF5kSjyjMWLLg49DXjaefrdkJjAXcd9bIixal716tuTahvywvwSIxYnH0bkSE7BDli9c57DcSco2iL2E3wBuHbAoniODOaLOs-K5YqDMq9EFIKow6KIG_Uv1NgYG6Lf2UogNv14YLanQCeSCXoE_XcFdGo2YYCEFjYg9Xy0Qvexelo'
     )
     cy.visit('http://localhost:3000')
+    cy.wait('@fetchUserData')
     cy.get('[data-automation="record-button"]').click()
     cy.tick(11000)
     cy.wait('@fetchAudioData')

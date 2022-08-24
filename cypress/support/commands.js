@@ -31,6 +31,571 @@ export const mockUser = () => {
   }).as('fetchUserData')
 }
 
+export const mockNoShows = () => {
+  cy.intercept('GET', 'https://api.spotify.com/v1/tracks/0RWolKaKzYDxm0lf8BR4co', 
+  (req) => {
+    req.reply({
+      
+        "album" : {
+          "album_type" : "compilation",
+          "artists" : [ {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/0LyfQWJT6nXafLPZqxe9Of"
+            },
+            "href" : "https://api.spotify.com/v1/artists/0LyfQWJT6nXafLPZqxe9Of",
+            "id" : "0LyfQWJT6nXafLPZqxe9Of",
+            "name" : "Various Artists",
+            "type" : "artist",
+            "uri" : "spotify:artist:0LyfQWJT6nXafLPZqxe9Of"
+          } ],
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/album/6XZzLfyoRuHuGwxaECznzU"
+          },
+          "href" : "https://api.spotify.com/v1/albums/6XZzLfyoRuHuGwxaECznzU",
+          "id" : "6XZzLfyoRuHuGwxaECznzU",
+          "images" : [ {
+            "height" : 640,
+            "url" : "https://i.scdn.co/image/ab67616d0000b2736964ae27be4c6151c6852114",
+            "width" : 640
+          }, {
+            "height" : 300,
+            "url" : "https://i.scdn.co/image/ab67616d00001e026964ae27be4c6151c6852114",
+            "width" : 300
+          }, {
+            "height" : 64,
+            "url" : "https://i.scdn.co/image/ab67616d000048516964ae27be4c6151c6852114",
+            "width" : 64
+          } ],
+          "name" : "Housework Hits 2",
+          "release_date" : "2012-04-16",
+          "release_date_precision" : "day",
+          "total_tracks" : 20,
+          "type" : "album",
+          "uri" : "spotify:album:6XZzLfyoRuHuGwxaECznzU"
+        },
+        "artists" : [ {
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/artist/7Defmv25Kj9knpobhHIghm"
+          },
+          "href" : "https://api.spotify.com/v1/artists/7Defmv25Kj9knpobhHIghm",
+          "id" : "7Defmv25Kj9knpobhHIghm",
+          "name" : "Alphabeat",
+          "type" : "artist",
+          "uri" : "spotify:artist:7Defmv25Kj9knpobhHIghm"
+        } ],
+       
+        "external_urls" : {
+          "spotify" : "https://open.spotify.com/track/7LKzj8BgCSn2q92Ktwk4TK"
+        },
+        "href" : "https://api.spotify.com/v1/tracks/7LKzj8BgCSn2q92Ktwk4TK",
+        "id" : "7LKzj8BgCSn2q92Ktwk4TK",
+        "is_local" : false,
+        "name" : "Fascination",
+        "popularity" : 10,
+        "preview_url" : "https://p.scdn.co/mp3-preview/9a49d9088c28d4e0b27b5dca7c25da4f0acf9c80?cid=3a265b4cd7724bfeb2ac0ccf8aabb871",
+        "track_number" : 9,
+        "type" : "track",
+        "uri" : "spotify:track:7LKzj8BgCSn2q92Ktwk4TK"
+      
+    })
+  } ).as('fetchAlphabeatTrackData')
+  cy.intercept(
+    'GET',
+    'https://api.spotify.com/v1/artists/7Defmv25Kj9knpobhHIghm/top-tracks?market=GB', (req) => {
+      req.reply({
+        "tracks" : [ {
+          "album" : {
+            "album_type" : "album",
+            "artists" : [ {
+              "external_urls" : {
+                "spotify" : "https://open.spotify.com/artist/7Defmv25Kj9knpobhHIghm"
+              },
+              "href" : "https://api.spotify.com/v1/artists/7Defmv25Kj9knpobhHIghm",
+              "id" : "7Defmv25Kj9knpobhHIghm",
+              "name" : "Alphabeat",
+              "type" : "artist",
+              "uri" : "spotify:artist:7Defmv25Kj9knpobhHIghm"
+            } ],
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/album/4dzRQNfbgCqWFHLJjgzBic"
+            },
+            "href" : "https://api.spotify.com/v1/albums/4dzRQNfbgCqWFHLJjgzBic",
+            "id" : "4dzRQNfbgCqWFHLJjgzBic",
+            "images" : [ {
+              "height" : 640,
+              "url" : "https://i.scdn.co/image/ab67616d0000b2737f2ad1fa57aa0a2c0bddf9b7",
+              "width" : 640
+            }, {
+              "height" : 300,
+              "url" : "https://i.scdn.co/image/ab67616d00001e027f2ad1fa57aa0a2c0bddf9b7",
+              "width" : 300
+            }, {
+              "height" : 64,
+              "url" : "https://i.scdn.co/image/ab67616d000048517f2ad1fa57aa0a2c0bddf9b7",
+              "width" : 64
+            } ],
+            "name" : "This Is Alphabeat",
+            "release_date" : "2008-01-01",
+            "release_date_precision" : "day",
+            "total_tracks" : 22,
+            "type" : "album",
+            "uri" : "spotify:album:4dzRQNfbgCqWFHLJjgzBic"
+          },
+          "artists" : [ {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/7Defmv25Kj9knpobhHIghm"
+            },
+            "href" : "https://api.spotify.com/v1/artists/7Defmv25Kj9knpobhHIghm",
+            "id" : "7Defmv25Kj9knpobhHIghm",
+            "name" : "Alphabeat",
+            "type" : "artist",
+            "uri" : "spotify:artist:7Defmv25Kj9knpobhHIghm"
+          } ],
+          "disc_number" : 1,
+          "duration_ms" : 182120,
+          "explicit" : false,
+          "external_ids" : {
+            "isrc" : "DKBR70704104"
+          },
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/track/5AKQ1JHezaXDmN5SyMSpEr"
+          },
+          "href" : "https://api.spotify.com/v1/tracks/5AKQ1JHezaXDmN5SyMSpEr",
+          "id" : "5AKQ1JHezaXDmN5SyMSpEr",
+          "is_local" : false,
+          "is_playable" : true,
+          "name" : "Fascination",
+          "popularity" : 62,
+          "preview_url" : "https://p.scdn.co/mp3-preview/a9ec9ebfffa64df484873a7bf0bcbbc2b9866ec1?cid=3a265b4cd7724bfeb2ac0ccf8aabb871",
+          "track_number" : 2,
+          "type" : "track",
+          "uri" : "spotify:track:5AKQ1JHezaXDmN5SyMSpEr"
+        }, {
+          "album" : {
+            "album_type" : "album",
+            "artists" : [ {
+              "external_urls" : {
+                "spotify" : "https://open.spotify.com/artist/7Defmv25Kj9knpobhHIghm"
+              },
+              "href" : "https://api.spotify.com/v1/artists/7Defmv25Kj9knpobhHIghm",
+              "id" : "7Defmv25Kj9knpobhHIghm",
+              "name" : "Alphabeat",
+              "type" : "artist",
+              "uri" : "spotify:artist:7Defmv25Kj9knpobhHIghm"
+            } ],
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/album/4dzRQNfbgCqWFHLJjgzBic"
+            },
+            "href" : "https://api.spotify.com/v1/albums/4dzRQNfbgCqWFHLJjgzBic",
+            "id" : "4dzRQNfbgCqWFHLJjgzBic",
+            "images" : [ {
+              "height" : 640,
+              "url" : "https://i.scdn.co/image/ab67616d0000b2737f2ad1fa57aa0a2c0bddf9b7",
+              "width" : 640
+            }, {
+              "height" : 300,
+              "url" : "https://i.scdn.co/image/ab67616d00001e027f2ad1fa57aa0a2c0bddf9b7",
+              "width" : 300
+            }, {
+              "height" : 64,
+              "url" : "https://i.scdn.co/image/ab67616d000048517f2ad1fa57aa0a2c0bddf9b7",
+              "width" : 64
+            } ],
+            "name" : "This Is Alphabeat",
+            "release_date" : "2008-01-01",
+            "release_date_precision" : "day",
+            "total_tracks" : 22,
+            "type" : "album",
+            "uri" : "spotify:album:4dzRQNfbgCqWFHLJjgzBic"
+          },
+          "artists" : [ {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/7Defmv25Kj9knpobhHIghm"
+            },
+            "href" : "https://api.spotify.com/v1/artists/7Defmv25Kj9knpobhHIghm",
+            "id" : "7Defmv25Kj9knpobhHIghm",
+            "name" : "Alphabeat",
+            "type" : "artist",
+            "uri" : "spotify:artist:7Defmv25Kj9knpobhHIghm"
+          } ],
+          "disc_number" : 1,
+          "duration_ms" : 264413,
+          "explicit" : false,
+          "external_ids" : {
+            "isrc" : "DKBR70704101"
+          },
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/track/4abTZU8TujcPI40eiBkb2B"
+          },
+          "href" : "https://api.spotify.com/v1/tracks/4abTZU8TujcPI40eiBkb2B",
+          "id" : "4abTZU8TujcPI40eiBkb2B",
+          "is_local" : false,
+          "is_playable" : true,
+          "name" : "10.000 Nights",
+          "popularity" : 47,
+          "preview_url" : "https://p.scdn.co/mp3-preview/b49e0bee50df1e5669c828c5d99a4735d27ed8fd?cid=3a265b4cd7724bfeb2ac0ccf8aabb871",
+          "track_number" : 3,
+          "type" : "track",
+          "uri" : "spotify:track:4abTZU8TujcPI40eiBkb2B"
+        }, {
+          "album" : {
+            "album_type" : "album",
+            "artists" : [ {
+              "external_urls" : {
+                "spotify" : "https://open.spotify.com/artist/7Defmv25Kj9knpobhHIghm"
+              },
+              "href" : "https://api.spotify.com/v1/artists/7Defmv25Kj9knpobhHIghm",
+              "id" : "7Defmv25Kj9knpobhHIghm",
+              "name" : "Alphabeat",
+              "type" : "artist",
+              "uri" : "spotify:artist:7Defmv25Kj9knpobhHIghm"
+            } ],
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/album/4JKR6gj3TcFFj3Pg6qqRRK"
+            },
+            "href" : "https://api.spotify.com/v1/albums/4JKR6gj3TcFFj3Pg6qqRRK",
+            "id" : "4JKR6gj3TcFFj3Pg6qqRRK",
+            "images" : [ {
+              "height" : 640,
+              "url" : "https://i.scdn.co/image/ab67616d0000b273c4b9f248495c07380492d1ed",
+              "width" : 640
+            }, {
+              "height" : 300,
+              "url" : "https://i.scdn.co/image/ab67616d00001e02c4b9f248495c07380492d1ed",
+              "width" : 300
+            }, {
+              "height" : 64,
+              "url" : "https://i.scdn.co/image/ab67616d00004851c4b9f248495c07380492d1ed",
+              "width" : 64
+            } ],
+            "name" : "The Beat Is...",
+            "release_date" : "2010-01-01",
+            "release_date_precision" : "day",
+            "total_tracks" : 11,
+            "type" : "album",
+            "uri" : "spotify:album:4JKR6gj3TcFFj3Pg6qqRRK"
+          },
+          "artists" : [ {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/7Defmv25Kj9knpobhHIghm"
+            },
+            "href" : "https://api.spotify.com/v1/artists/7Defmv25Kj9knpobhHIghm",
+            "id" : "7Defmv25Kj9knpobhHIghm",
+            "name" : "Alphabeat",
+            "type" : "artist",
+            "uri" : "spotify:artist:7Defmv25Kj9knpobhHIghm"
+          } ],
+          "disc_number" : 1,
+          "duration_ms" : 217760,
+          "explicit" : false,
+          "external_ids" : {
+            "isrc" : "GBUM70909142"
+          },
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/track/0JEeqTbdMFLgIeS3iFysse"
+          },
+          "href" : "https://api.spotify.com/v1/tracks/0JEeqTbdMFLgIeS3iFysse",
+          "id" : "0JEeqTbdMFLgIeS3iFysse",
+          "is_local" : false,
+          "is_playable" : true,
+          "name" : "The Spell",
+          "popularity" : 39,
+          "preview_url" : "https://p.scdn.co/mp3-preview/78ef650e72ee7f36894b8e1e7f8d1458b6bd8e5d?cid=3a265b4cd7724bfeb2ac0ccf8aabb871",
+          "track_number" : 2,
+          "type" : "track",
+          "uri" : "spotify:track:0JEeqTbdMFLgIeS3iFysse"
+        }, {
+          "album" : {
+            "album_type" : "album",
+            "artists" : [ {
+              "external_urls" : {
+                "spotify" : "https://open.spotify.com/artist/7Defmv25Kj9knpobhHIghm"
+              },
+              "href" : "https://api.spotify.com/v1/artists/7Defmv25Kj9knpobhHIghm",
+              "id" : "7Defmv25Kj9knpobhHIghm",
+              "name" : "Alphabeat",
+              "type" : "artist",
+              "uri" : "spotify:artist:7Defmv25Kj9knpobhHIghm"
+            } ],
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/album/6r5B6B2u7DCHh7Yx0thQZD"
+            },
+            "href" : "https://api.spotify.com/v1/albums/6r5B6B2u7DCHh7Yx0thQZD",
+            "id" : "6r5B6B2u7DCHh7Yx0thQZD",
+            "images" : [ {
+              "height" : 640,
+              "url" : "https://i.scdn.co/image/ab67616d0000b273faa2e3eb2fd82078a55856bd",
+              "width" : 640
+            }, {
+              "height" : 300,
+              "url" : "https://i.scdn.co/image/ab67616d00001e02faa2e3eb2fd82078a55856bd",
+              "width" : 300
+            }, {
+              "height" : 64,
+              "url" : "https://i.scdn.co/image/ab67616d00004851faa2e3eb2fd82078a55856bd",
+              "width" : 64
+            } ],
+            "name" : "Don't Know What's Cool Anymore",
+            "release_date" : "2019-11-01",
+            "release_date_precision" : "day",
+            "total_tracks" : 9,
+            "type" : "album",
+            "uri" : "spotify:album:6r5B6B2u7DCHh7Yx0thQZD"
+          },
+          "artists" : [ {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/7Defmv25Kj9knpobhHIghm"
+            },
+            "href" : "https://api.spotify.com/v1/artists/7Defmv25Kj9knpobhHIghm",
+            "id" : "7Defmv25Kj9knpobhHIghm",
+            "name" : "Alphabeat",
+            "type" : "artist",
+            "uri" : "spotify:artist:7Defmv25Kj9knpobhHIghm"
+          } ],
+          "disc_number" : 1,
+          "duration_ms" : 165695,
+          "explicit" : false,
+          "external_ids" : {
+            "isrc" : "DKAZA1900026"
+          },
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/track/24beG9OYbszdUDJMMtB3fa"
+          },
+          "href" : "https://api.spotify.com/v1/tracks/24beG9OYbszdUDJMMtB3fa",
+          "id" : "24beG9OYbszdUDJMMtB3fa",
+          "is_local" : false,
+          "is_playable" : true,
+          "name" : "Shadows",
+          "popularity" : 34,
+          "preview_url" : "https://p.scdn.co/mp3-preview/8a3f7d16380ce24cec35b12deb6f056e68f10c62?cid=3a265b4cd7724bfeb2ac0ccf8aabb871",
+          "track_number" : 1,
+          "type" : "track",
+          "uri" : "spotify:track:24beG9OYbszdUDJMMtB3fa"
+        }, {
+          "album" : {
+            "album_type" : "album",
+            "artists" : [ {
+              "external_urls" : {
+                "spotify" : "https://open.spotify.com/artist/7Defmv25Kj9knpobhHIghm"
+              },
+              "href" : "https://api.spotify.com/v1/artists/7Defmv25Kj9knpobhHIghm",
+              "id" : "7Defmv25Kj9knpobhHIghm",
+              "name" : "Alphabeat",
+              "type" : "artist",
+              "uri" : "spotify:artist:7Defmv25Kj9knpobhHIghm"
+            } ],
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/album/4dzRQNfbgCqWFHLJjgzBic"
+            },
+            "href" : "https://api.spotify.com/v1/albums/4dzRQNfbgCqWFHLJjgzBic",
+            "id" : "4dzRQNfbgCqWFHLJjgzBic",
+            "images" : [ {
+              "height" : 640,
+              "url" : "https://i.scdn.co/image/ab67616d0000b2737f2ad1fa57aa0a2c0bddf9b7",
+              "width" : 640
+            }, {
+              "height" : 300,
+              "url" : "https://i.scdn.co/image/ab67616d00001e027f2ad1fa57aa0a2c0bddf9b7",
+              "width" : 300
+            }, {
+              "height" : 64,
+              "url" : "https://i.scdn.co/image/ab67616d000048517f2ad1fa57aa0a2c0bddf9b7",
+              "width" : 64
+            } ],
+            "name" : "This Is Alphabeat",
+            "release_date" : "2008-01-01",
+            "release_date_precision" : "day",
+            "total_tracks" : 22,
+            "type" : "album",
+            "uri" : "spotify:album:4dzRQNfbgCqWFHLJjgzBic"
+          },
+          "artists" : [ {
+            "external_urls" : {
+              "spotify" : "https://open.spotify.com/artist/7Defmv25Kj9knpobhHIghm"
+            },
+            "href" : "https://api.spotify.com/v1/artists/7Defmv25Kj9knpobhHIghm",
+            "id" : "7Defmv25Kj9knpobhHIghm",
+            "name" : "Alphabeat",
+            "type" : "artist",
+            "uri" : "spotify:artist:7Defmv25Kj9knpobhHIghm"
+          } ],
+          "disc_number" : 1,
+          "duration_ms" : 193000,
+          "explicit" : false,
+          "external_ids" : {
+            "isrc" : "DKBR70704501"
+          },
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/track/0S6sjNANUq2WBlGbwPmAN9"
+          },
+          "href" : "https://api.spotify.com/v1/tracks/0S6sjNANUq2WBlGbwPmAN9",
+          "id" : "0S6sjNANUq2WBlGbwPmAN9",
+          "is_local" : false,
+          "is_playable" : true,
+          "name" : "Boyfriend",
+          "popularity" : 37,
+          "preview_url" : "https://p.scdn.co/mp3-preview/e89304dc89a2295b6e235a67bc827563a717f171?cid=3a265b4cd7724bfeb2ac0ccf8aabb871",
+          "track_number" : 4,
+          "type" : "track",
+          "uri" : "spotify:track:0S6sjNANUq2WBlGbwPmAN9"
+        }]
+
+      })
+    }
+  ).as('fetchAlphabeatTopTracks')
+  cy.intercept(
+    'GET',
+    'https://api.spotify.com/v1/artists/7Defmv25Kj9knpobhHIghm/related-artists', (req) => {
+      req.reply({
+        "artists" : [ {
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/artist/2nnBn2iyqkuOBj85nhGp1k"
+          },
+          "followers" : {
+            "href" : null,
+            "total" : 27933
+          },
+          "genres" : [ "bubblegum dance", "eurodance", "europop" ],
+          "href" : "https://api.spotify.com/v1/artists/2nnBn2iyqkuOBj85nhGp1k",
+          "id" : "2nnBn2iyqkuOBj85nhGp1k",
+          "images" : [ {
+            "height" : 640,
+            "url" : "https://i.scdn.co/image/ab6761610000e5ebd1434d2a2e6dfa1cc6823daa",
+            "width" : 640
+          }, {
+            "height" : 320,
+            "url" : "https://i.scdn.co/image/ab67616100005174d1434d2a2e6dfa1cc6823daa",
+            "width" : 320
+          }, {
+            "height" : 160,
+            "url" : "https://i.scdn.co/image/ab6761610000f178d1434d2a2e6dfa1cc6823daa",
+            "width" : 160
+          } ],
+          "name" : "Infernal",
+          "popularity" : 52,
+          "type" : "artist",
+          "uri" : "spotify:artist:2nnBn2iyqkuOBj85nhGp1k"
+        }, {
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/artist/0nYStwwY321ISCu6BGJq98"
+          },
+          "followers" : {
+            "href" : null,
+            "total" : 38000
+          },
+          "genres" : [ "danish pop" ],
+          "href" : "https://api.spotify.com/v1/artists/0nYStwwY321ISCu6BGJq98",
+          "id" : "0nYStwwY321ISCu6BGJq98",
+          "images" : [ {
+            "height" : 640,
+            "url" : "https://i.scdn.co/image/ab6761610000e5eb90bebb56da772d5ec850af9c",
+            "width" : 640
+          }, {
+            "height" : 320,
+            "url" : "https://i.scdn.co/image/ab6761610000517490bebb56da772d5ec850af9c",
+            "width" : 320
+          }, {
+            "height" : 160,
+            "url" : "https://i.scdn.co/image/ab6761610000f17890bebb56da772d5ec850af9c",
+            "width" : 160
+          } ],
+          "name" : "Nabiha",
+          "popularity" : 35,
+          "type" : "artist",
+          "uri" : "spotify:artist:0nYStwwY321ISCu6BGJq98"
+        }, {
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/artist/3EBRANWwnViQuBrImN61Z1"
+          },
+          "followers" : {
+            "href" : null,
+            "total" : 913964
+          },
+          "genres" : [ "dance pop", "electropop", "europop", "post-teen pop", "uk pop" ],
+          "href" : "https://api.spotify.com/v1/artists/3EBRANWwnViQuBrImN61Z1",
+          "id" : "3EBRANWwnViQuBrImN61Z1",
+          "images" : [ {
+            "height" : 640,
+            "url" : "https://i.scdn.co/image/ab6761610000e5eb9f9103ff3eb3073ff11fe923",
+            "width" : 640
+          }, {
+            "height" : 320,
+            "url" : "https://i.scdn.co/image/ab676161000051749f9103ff3eb3073ff11fe923",
+            "width" : 320
+          }, {
+            "height" : 160,
+            "url" : "https://i.scdn.co/image/ab6761610000f1789f9103ff3eb3073ff11fe923",
+            "width" : 160
+          } ],
+          "name" : "Pixie Lott",
+          "popularity" : 50,
+          "type" : "artist",
+          "uri" : "spotify:artist:3EBRANWwnViQuBrImN61Z1"
+        }, {
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/artist/5S2oc3f44h29wPBZzNycKF"
+          },
+          "followers" : {
+            "href" : null,
+            "total" : 11416
+          },
+          "genres" : [ "classic danish pop", "danish pop", "danish pop rock" ],
+          "href" : "https://api.spotify.com/v1/artists/5S2oc3f44h29wPBZzNycKF",
+          "id" : "5S2oc3f44h29wPBZzNycKF",
+          "images" : [ {
+            "height" : 640,
+            "url" : "https://i.scdn.co/image/ab6761610000e5ebcb0b5ca81ccf550e8108f6c2",
+            "width" : 640
+          }, {
+            "height" : 320,
+            "url" : "https://i.scdn.co/image/ab67616100005174cb0b5ca81ccf550e8108f6c2",
+            "width" : 320
+          }, {
+            "height" : 160,
+            "url" : "https://i.scdn.co/image/ab6761610000f178cb0b5ca81ccf550e8108f6c2",
+            "width" : 160
+          } ],
+          "name" : "Johnny Deluxe",
+          "popularity" : 41,
+          "type" : "artist",
+          "uri" : "spotify:artist:5S2oc3f44h29wPBZzNycKF"
+        }, {
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/artist/028xhPwqtWva4J0MkFHY2x"
+          },
+          "followers" : {
+            "href" : null,
+            "total" : 138038
+          },
+          "genres" : [ "danish pop", "danish pop rock" ],
+          "href" : "https://api.spotify.com/v1/artists/028xhPwqtWva4J0MkFHY2x",
+          "id" : "028xhPwqtWva4J0MkFHY2x",
+          "images" : [ {
+            "height" : 640,
+            "url" : "https://i.scdn.co/image/ab6761610000e5eb384d1840c9c2c19d6d86c12c",
+            "width" : 640
+          }, {
+            "height" : 320,
+            "url" : "https://i.scdn.co/image/ab67616100005174384d1840c9c2c19d6d86c12c",
+            "width" : 320
+          }, {
+            "height" : 160,
+            "url" : "https://i.scdn.co/image/ab6761610000f178384d1840c9c2c19d6d86c12c",
+            "width" : 160
+          } ],
+          "name" : "Mads Langer",
+          "popularity" : 46,
+          "type" : "artist",
+          "uri" : "spotify:artist:028xhPwqtWva4J0MkFHY2x"
+        }]
+      })}).as('fetchAlphabeatRelatedArtists')
+      cy.intercept( 'GET',
+      'https://app.ticketmaster.com/discovery/v2/events?apikey=0y3bmD7nU4GSr7rlKAPuFHbw48SeAdYn&keyword=Alphabeat&locale=*', (req) => {
+        req.reply({
+          "_links":{"self":{"href":"/discovery/v2/events?locale=*&keyword=Alphabeat"}},"page":{"size":20,"totalElements":0,"totalPages":0,"number":0}
+        })}).as('fetchAlphabeatEventData')
+}
+
 export const mockExtraInfo = () => {
   cy.intercept(
     'GET',
@@ -481,11 +1046,8 @@ export const mockExtraInfo = () => {
           events: [
             {
               name: 'The Snuts',
-
               id: 'ZK98xZKrZAdFdZup5QQKr',
-
               url: 'https://shop.ticketmaster.it/biglietti/acquista-biglietti-the-snuts.html',
-
               dates: {
                 start: {
                   localDate: '2022-09-16',

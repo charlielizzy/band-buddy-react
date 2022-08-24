@@ -1,5 +1,6 @@
 import React from 'react'
 import useAuth from '../../Context'
+import { Maps } from '../Maps'
 
 export const ExtraInfoCard = (props) => {
   const { logout } = useAuth()
@@ -23,52 +24,29 @@ export const ExtraInfoCard = (props) => {
       <br />
       <p>Album: {props.albumName}</p>
       <br />
-      <p>
-        Top Tracks: 1.
-        <a href={props.topTracks[0].url} target="_blank">
-          {props.topTracks[0].name}
-        </a>
-        2.
-        <a href={props.topTracks[1].url} target="_blank">
-          {props.topTracks[1].name}
-        </a>
-        3.
-        <a href={props.topTracks[2].url} target="_blank">
-          {props.topTracks[2].name}
-        </a>
-        4.
-        <a href={props.topTracks[3].url} target="_blank">
-          {props.topTracks[3].name}
-        </a>
-        5.
-        <a href={props.topTracks[4].url} target="_blank">
-          {props.topTracks[4].name}
-        </a>
-      </p>
+      <p>Top Tracks</p>
+      {props.topTracks.map((track, index) => {
+        return (
+          <div>
+            <p>
+              {index + 1}.
+              <a href={track.url} target="_blank">
+                {track.name}
+              </a>
+            </p>
+          </div>
+        )
+      })}
       <br />
-      <p>
-        Related Artists:
-        <a href={props.relatedArtists[0].url} target="_blank">
-          {props.relatedArtists[0].name}
-        </a>
-        ,
-        <a href={props.relatedArtists[1].url} target="_blank">
-          {props.relatedArtists[1].name}
-        </a>
-        ,
-        <a href={props.relatedArtists[2].url} target="_blank">
-          {props.relatedArtists[2].name}
-        </a>
-        ,
-        <a href={props.relatedArtists[3].url} target="_blank">
-          {props.relatedArtists[3].name}
-        </a>
-        ,
-        <a href={props.relatedArtists[4].url} target="_blank">
-          {props.relatedArtists[4].name}
-        </a>
-        ,
-      </p>
+      <p>Related Artists: </p>
+      {console.log('props.relatedArtists', props.relatedArtists)}
+      {props.relatedArtists.map((relatedArtist, index) => {
+        return (
+          <a href={relatedArtist.url} target="_blank">
+            {relatedArtist.name}
+          </a>
+        )
+      })}
       <br />
       <a
         href={`https://open.spotify.com/artist/${props.artistID}`}
@@ -77,39 +55,22 @@ export const ExtraInfoCard = (props) => {
         Listen to this artist on Spotify
       </a>
       <br />
-      {props.events !== null ? (
+      {props.events.length > 0 ? (
         <div>
           <p>Upcoming shows:</p>
-          <p>
-            <a href={props.events[0].url} target="_blank">
-              {props.events[0].name}
-            </a>
-            , {props.events[0].city}, {props.events[0].date},
-          </p>
-          <p>
-            <a href={props.events[1].url} target="_blank">
-              {props.events[1].name}
-            </a>
-            , {props.events[1].city}, {props.events[1].date},
-          </p>
-          <p>
-            <a href={props.events[2].url} target="_blank">
-              {props.events[2].name}
-            </a>
-            , {props.events[2].city}, {props.events[2].date},
-          </p>
-          <p>
-            <a href={props.events[3].url} target="_blank">
-              {props.events[3].name}
-            </a>
-            , {props.events[3].city}, {props.events[3].date},
-          </p>
-          <p>
-            <a href={props.events[4].url} target="_blank">
-              {props.events[4].name}
-            </a>
-            , {props.events[4].city}, {props.events[4].date},
-          </p>
+          {props.events.map((event, index) => {
+            return (
+              <div>
+                <p>
+                  <a href={event.url} target="_blank">
+                    {event.name}
+                  </a>
+                  , {event.city}, {event.date},
+                </p>
+                <Maps coordinates={event.coordinates} />
+              </div>
+            )
+          })}
         </div>
       ) : (
         <p>There are no upcoming shows for this artist</p>

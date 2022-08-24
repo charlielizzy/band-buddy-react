@@ -17,6 +17,12 @@ export default function Spotify() {
     getTrackInfo()
   }, [])
 
+  useEffect(() => {
+    if (data && topTracks && relatedArtists && events) {
+      setLoading(false)
+    }
+  }, [data, topTracks, relatedArtists, events])
+
   const getTrackInfo = async () => {
     const results = await fetch(
       `https://api.spotify.com/v1/tracks/${spotifyTrackID}`,
@@ -73,7 +79,6 @@ export default function Spotify() {
       }
     )
     const data = await results.json()
-    console.log('relatedArtists', relatedArtists)
     setRelatedArtists([
       {
         name: data.artists[0].name,
@@ -99,7 +104,6 @@ export default function Spotify() {
   }
 
   const getArtistEvents = async (artistName) => {
-    // console.log('artistName', artistName)
     const results = await fetch(
       // `https://app.ticketmaster.com/discovery/v2/events?apikey=${process.env.REACT_APP_TICKETMASTER_API_KEY}&keyword=${artistName}&locale=*`
       `https://app.ticketmaster.com/discovery/v2/events?apikey=0y3bmD7nU4GSr7rlKAPuFHbw48SeAdYn&keyword=${artistName}&locale=*`
@@ -112,36 +116,45 @@ export default function Spotify() {
           city: eventData._embedded.events[0]._embedded.venues[0].city.name,
           date: eventData._embedded.events[0].dates.start.localDate,
           url: eventData._embedded.events[0].url,
+          coordinates:
+            eventData._embedded.events[0]._embedded.venues[0].location,
         },
         {
           name: eventData._embedded.events[1].name,
           city: eventData._embedded.events[1]._embedded.venues[0].city.name,
           date: eventData._embedded.events[1].dates.start.localDate,
           url: eventData._embedded.events[1].url,
+          coordinates:
+            eventData._embedded.events[1]._embedded.venues[0].location,
         },
         {
           name: eventData._embedded.events[2].name,
           city: eventData._embedded.events[2]._embedded.venues[0].city.name,
           date: eventData._embedded.events[2].dates.start.localDate,
           url: eventData._embedded.events[2].url,
+          coordinates:
+            eventData._embedded.events[2]._embedded.venues[0].location,
         },
         {
           name: eventData._embedded.events[3].name,
           city: eventData._embedded.events[3]._embedded.venues[0].city.name,
           date: eventData._embedded.events[3].dates.start.localDate,
           url: eventData._embedded.events[3].url,
+          coordinates:
+            eventData._embedded.events[3]._embedded.venues[0].location,
         },
         {
           name: eventData._embedded.events[4].name,
           city: eventData._embedded.events[4]._embedded.venues[0].city.name,
           date: eventData._embedded.events[4].dates.start.localDate,
           url: eventData._embedded.events[4].url,
+          coordinates:
+            eventData._embedded.events[4]._embedded.venues[0].location,
         },
       ])
+    } else {
+      setEvents([])
     }
-
-    setLoading(false)
-    console.log('events', events)
   }
 
   // if (data !== null && topTracks !== null && relatedArtists !== null) {

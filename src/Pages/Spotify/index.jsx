@@ -105,8 +105,7 @@ export default function Spotify() {
 
   const getArtistEvents = async (artistName) => {
     const results = await fetch(
-      // `https://app.ticketmaster.com/discovery/v2/events?apikey=${process.env.REACT_APP_TICKETMASTER_API_KEY}&keyword=${artistName}&locale=*`
-      `https://app.ticketmaster.com/discovery/v2/events?apikey=0y3bmD7nU4GSr7rlKAPuFHbw48SeAdYn&keyword=${artistName}&locale=*`
+      `https://app.ticketmaster.com/discovery/v2/events?apikey=${process.env.REACT_APP_TICKETMASTER_API_KEY}&keyword=${artistName}&locale=*`
     )
     const eventData = await results.json()
     if (eventData._embedded !== undefined) {
@@ -157,24 +156,8 @@ export default function Spotify() {
     }
   }
 
-  // if (data !== null && topTracks !== null && relatedArtists !== null) {
-  //   setLoading(false)
-  // }
-
   return (
     <div>
-      {/* {data && topTracks && relatedArtists && events ? (
-        <ExtraInfoCard
-          trackName={data.trackName}
-          artistName={data.artistName}
-          albumName={data.albumName}
-          albumArt={data.albumArt}
-          topTracks={topTracks}
-          relatedArtists={relatedArtists}
-          artistID={artistID}
-          events={events}
-        />
-      ) : null} */}
       {loading ? null : (
         <ExtraInfoCard
           trackName={data.trackName}

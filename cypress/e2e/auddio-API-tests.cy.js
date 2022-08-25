@@ -1,13 +1,10 @@
-import { mockUser } from '../support/commands'
+import { mockUser, setAccessToken } from '../support/commands'
 
 describe('happy-path', () => {
   describe('intial setup of app when loaded', () => {
     beforeEach(() => {
       mockUser()
-      cy.setCookie(
-        'accessToken',
-        'BQC5CHoBV44kZ6UHqNqG-xr_ZCF5kSjyjMWLLg49DXjaefrdkJjAXcd9bIixal716tuTahvywvwSIxYnH0bkSE7BDli9c57DcSco2iL2E3wBuHbAoniODOaLOs-K5YqDMq9EFIKow6KIG_Uv1NgYG6Lf2UogNv14YLanQCeSCXoE_XcFdGo2YYCEFjYg9Xy0Qvexelo'
-      )
+      setAccessToken()
       cy.visit('http://localhost:3000')
       cy.wait('@fetchUserData')
       cy.clock()
@@ -47,10 +44,7 @@ describe('happy-path', () => {
 describe('song not found', () => {
   it('should return songNotFound if result is equal to null and menuBar should not be visible', () => {
     mockUser()
-    cy.setCookie(
-      'accessToken',
-      'BQC5CHoBV44kZ6UHqNqG-xr_ZCF5kSjyjMWLLg49DXjaefrdkJjAXcd9bIixal716tuTahvywvwSIxYnH0bkSE7BDli9c57DcSco2iL2E3wBuHbAoniODOaLOs-K5YqDMq9EFIKow6KIG_Uv1NgYG6Lf2UogNv14YLanQCeSCXoE_XcFdGo2YYCEFjYg9Xy0Qvexelo'
-    )
+    setAccessToken()
     cy.visit('http://localhost:3000')
     cy.wait('@fetchUserData')
     cy.clock()
@@ -91,10 +85,7 @@ describe('API SUCCESS', () => {
       })
     }).as('fetchAudioData')
     cy.clock()
-    cy.setCookie(
-      'accessToken',
-      'BQC5CHoBV44kZ6UHqNqG-xr_ZCF5kSjyjMWLLg49DXjaefrdkJjAXcd9bIixal716tuTahvywvwSIxYnH0bkSE7BDli9c57DcSco2iL2E3wBuHbAoniODOaLOs-K5YqDMq9EFIKow6KIG_Uv1NgYG6Lf2UogNv14YLanQCeSCXoE_XcFdGo2YYCEFjYg9Xy0Qvexelo'
-    )
+    setAccessToken()
     cy.visit('http://localhost:3000')
     cy.wait('@fetchUserData')
     cy.get('[data-automation="record-button"]').click()
@@ -146,10 +137,7 @@ describe('API FAILURE', () => {
     cy.intercept('POST', 'http://localhost:3001/audio_info', {
       statusCode: 500,
     }).as('fetchAudioData')
-    cy.setCookie(
-      'accessToken',
-      'BQC5CHoBV44kZ6UHqNqG-xr_ZCF5kSjyjMWLLg49DXjaefrdkJjAXcd9bIixal716tuTahvywvwSIxYnH0bkSE7BDli9c57DcSco2iL2E3wBuHbAoniODOaLOs-K5YqDMq9EFIKow6KIG_Uv1NgYG6Lf2UogNv14YLanQCeSCXoE_XcFdGo2YYCEFjYg9Xy0Qvexelo'
-    )
+    setAccessToken()
     cy.visit('http://localhost:3000')
     cy.wait('@fetchUserData')
     cy.get('[data-automation="record-button"]').click()

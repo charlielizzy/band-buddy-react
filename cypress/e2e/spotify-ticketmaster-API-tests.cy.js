@@ -1,31 +1,18 @@
-import { mockExtraInfo, mockNoShows, mockUser } from '../support/commands'
+import { mockAudioData, mockExtraInfo, mockNoShows, mockUser, setAccessToken } from '../support/commands'
 
 describe('spotify-ticketmaster tests', () => {
   describe('artist with upcoming shows', () => {
     beforeEach(() => {
       mockUser()
-      cy.intercept('POST', 'http://localhost:3001/audio_info', (req) => {
-        req.reply({
-          result: {
-            title: 'Glasgow',
-            artist: 'The Snuts',
-            spotify: {
-              id: '6nCFIb0seIECUijbDpYNDu',
-            },
-          },
-        })
-      }).as('fetchAudioData')
+      mockAudioData("The Snuts", "Glasgow", "6nCFIb0seIECUijbDpYNDu")
       mockExtraInfo()
       cy.clock()
-      cy.setCookie(
-        'accessToken',
-        'BQC5CHoBV44kZ6UHqNqG-xr_ZCF5kSjyjMWLLg49DXjaefrdkJjAXcd9bIixal716tuTahvywvwSIxYnH0bkSE7BDli9c57DcSco2iL2E3wBuHbAoniODOaLOs-K5YqDMq9EFIKow6KIG_Uv1NgYG6Lf2UogNv14YLanQCeSCXoE_XcFdGo2YYCEFjYg9Xy0Qvexelo'
-      )
+      setAccessToken()
       cy.visit('http://localhost:3000')
       cy.wait('@fetchUserData')
       cy.get('[data-automation="record-button"]').click()
       cy.tick(11000)
-      cy.wait('@fetchAudioData')
+      cy.wait('@fetchMockAudioData')
       cy.get('[data-automation="get-more-info"]').click()
       cy.wait('@fetchTrackData')
       cy.wait('@fetchTopTracksInfo')
@@ -60,19 +47,9 @@ describe('spotify-ticketmaster tests', () => {
 describe('artist with no upcoming shows', () => {
   it.only('should return no upcoming shows if events is undefined', () => {
     mockUser()
-    cy.intercept('POST', 'http://localhost:3001/audio_info', (req) => {
-      req.reply({
-        result: {
-          title: 'Fascination',
-          artist: 'Alphabeat',
-        },
-      })
-    }).as('fetchAudioData')
+    mockAudioData("Alphabeat", "Fascination", "7LKzj8BgCSn2q92Ktwk4TK")
     cy.clock()
-    cy.setCookie(
-      'accessToken',
-      'BQC5CHoBV44kZ6UHqNqG-xr_ZCF5kSjyjMWLLg49DXjaefrdkJjAXcd9bIixal716tuTahvywvwSIxYnH0bkSE7BDli9c57DcSco2iL2E3wBuHbAoniODOaLOs-K5YqDMq9EFIKow6KIG_Uv1NgYG6Lf2UogNv14YLanQCeSCXoE_XcFdGo2YYCEFjYg9Xy0Qvexelo'
-    )
+    setAccessToken()
     mockNoShows()
     cy.visit('http://localhost:3000')
     cy.wait('@fetchUserData')

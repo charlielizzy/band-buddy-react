@@ -26,15 +26,7 @@ export default function Home() {
 
   let navigate = useNavigate()
 
-  // const [spotifyArtistID, setSpotifyArtistID] = useState('')
   const [spotifyTrackID, setSpotifyTrackID] = useState('')
-
-  // const handleRemoveCookie = () => {
-  //   removeCookie('accessToken', {
-  //     path: '/',
-  //   })
-  //   navigate('/')
-  // }
 
   console.log('isAuthenticated', isAuthenticated())
   return (
@@ -74,7 +66,6 @@ export default function Home() {
             setAPIError={setAPIError}
             setLoading={setLoading}
             loading={loading}
-            // setSpotifyArtistID={setSpotifyArtistID}
             setSpotifyTrackID={setSpotifyTrackID}
           />
         </div>
@@ -87,20 +78,6 @@ export default function Home() {
         {title !== '' && cardState === 'songCard' ? (
           <SongCard title={title} artist={artist} />
         ) : null}
-
-        {/* {title !== '' && cardState === 'artistCard' ? (
-          <ArtistCard
-            artist={artist}
-            // spotifyArtistID={spotifyArtistID}
-            // spotifyTrackID={spotifyTrackID}
-          />
-        ) : null}
-
-        {title !== '' && cardState === 'gigCard' ? (
-          <GigCard artist={artist} />
-        ) : null} */}
-        {/* <button onClick={()=>navigate(`/track/${spotifyTrackID}`)}
-        >Get More Song Info</button> */}
       </div>
     </div>
   )

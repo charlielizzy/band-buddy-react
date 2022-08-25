@@ -44,6 +44,7 @@ export const RecordingButton = (props) => {
                     props.setLoading(false)
                   } else {
                     const { artist, title } = result
+                    console.log('x', result)
                     const spotifyTrackID = result.spotify.id
                     props.setArtist(artist)
                     props.setTitle(title)
@@ -69,6 +70,7 @@ export const RecordingButton = (props) => {
         props.setLoading(false)
         console.error(e)
       })
+    props.setLoading(false)
   }
 
   return (

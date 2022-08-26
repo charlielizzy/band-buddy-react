@@ -33,7 +33,6 @@ export default function Spotify() {
         },
       }
     )
-
     const data = await results.json()
     setData({
       trackName: data.name,

@@ -1,8 +1,7 @@
 import { SPOTIFY_USER_DATA, ALPHABEAT_TOP_TRACKS, ALPHABEAT_TRACK_DATA, ALPHABEAT_RELATED_ARTISTS, ALPHABEAT_EVENT_DATA, SNUTS_TRACK_DATA, SNUTS_TOP_TRACKS, SNUTS_RELATED_ARTISTS, SNUTS_EVENT_DATA} from './constants';
 
 export const setAccessToken = () => {
-  cy.setCookie('accessToken',
-  'BQC5CHoBV44kZ6UHqNqG-xr_ZCF5kSjyjMWLLg49DXjaefrdkJjAXcd9bIixal716tuTahvywvwSIxYnH0bkSE7BDli9c57DcSco2iL2E3wBuHbAoniODOaLOs-K5YqDMq9EFIKow6KIG_Uv1NgYG6Lf2UogNv14YLanQCeSCXoE_XcFdGo2YYCEFjYg9Xy0Qvexelo')
+  cy.setCookie('accessToken',  'BQBSy5-qNSRetMTZhk3KaEXKuB7FZy5YxE6t8B9VQy7MoYW6cMMWR2D7hoTNDpZ9BwwAvI4IXl9EYVUFZzfItt2lviGHmL5oJUOQcSgq1fXkh1RJiKzHegGc2f3mI78JKHZfua4ioFVTXkfutc5UuM-99A_qxI1iCt9D97XrUnSSTmvbxXgLNU5uLHm6y4WlkD9WIZk')
 }
 
 export const mockAudioData = (artist, title, id) => {
@@ -25,7 +24,7 @@ export const mockUser = () => {
   }).as('fetchUserData')
 }
 
-export const mockNoShows = () => {
+export const mockAlphabeatData = () => {
   cy.intercept('GET', 'https://api.spotify.com/v1/tracks/0RWolKaKzYDxm0lf8BR4co', 
   (req) => {
     req.reply(ALPHABEAT_TRACK_DATA)
@@ -45,7 +44,7 @@ export const mockNoShows = () => {
         req.reply(ALPHABEAT_EVENT_DATA)}).as('fetchAlphabeatEventData')
 }
 
-export const mockExtraInfo = () => {
+export const mockSnutsData = () => {
   cy.intercept(
     'GET',
     'https://api.spotify.com/v1/tracks/6nCFIb0seIECUijbDpYNDu',

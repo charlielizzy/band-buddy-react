@@ -1,11 +1,11 @@
-import { mockAudioData, mockExtraInfo, mockNoShows, mockUser, setAccessToken } from '../support/commands'
+import { mockAlphabeatData, mockAudioData, mockExtraInfo, mockNoShows, mockSnutsData, mockUser, setAccessToken } from '../support/commands'
 
 describe('spotify-ticketmaster tests', () => {
   describe('artist with upcoming shows', () => {
     beforeEach(() => {
       mockUser()
       mockAudioData("The Snuts", "Glasgow", "6nCFIb0seIECUijbDpYNDu")
-      mockExtraInfo()
+      mockSnutsData()
       cy.clock()
       setAccessToken()
       cy.visit('http://localhost:3000')
@@ -48,20 +48,19 @@ describe('artist with no upcoming shows', () => {
   it.only('should return no upcoming shows if events is undefined', () => {
     mockUser()
     mockAudioData("Alphabeat", "Fascination", "7LKzj8BgCSn2q92Ktwk4TK")
+    mockAlphabeatData()
     cy.clock()
     setAccessToken()
-    mockNoShows()
     cy.visit('http://localhost:3000')
     cy.wait('@fetchUserData')
     cy.get('[data-automation="record-button"]').click()
     cy.tick(11000)
-    cy.wait('@fetchAudioData')
+    cy.wait('@fetchMockAudioData')
     cy.get('[data-automation="get-more-info"]').click()
     cy.wait('@fetchAlphabeatTrackData')
     cy.wait('@fetchAlphabeatTopTracks')
     cy.wait('@fetchAlphabeatRelatedArtists')
     cy.wait('@fetchAlphabeatEventData')
-    
     cy.get('[data-automation="extra-info-card"]').contains(
       'There are no upcoming shows for this artist'
     )

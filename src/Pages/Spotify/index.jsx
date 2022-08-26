@@ -106,17 +106,29 @@ export default function Spotify() {
       `https://app.ticketmaster.com/discovery/v2/events?apikey=${process.env.REACT_APP_TICKETMASTER_API_KEY}&keyword=${artistName}&locale=*`
     )
     const eventData = await results.json()
+    console.log('eventData', eventData)
     if (eventData._embedded !== undefined) {
       setEvents([
         {
+          eventID: eventData._embedded.events[0].id,
           name: eventData._embedded.events[0].name,
           city: eventData._embedded.events[0]._embedded.venues[0].city.name,
           date: eventData._embedded.events[0].dates.start.localDate,
           url: eventData._embedded.events[0].url,
           coordinates:
             eventData._embedded.events[0]._embedded.venues[0].location,
+          //need to make it so that we only define social media if there are any social media links
+          // social_media: {
+          //   facebook:
+          //     eventData._embedded.events[0]._embedded.externalLinks.facebook,
+          //   instagram:
+          //     eventData._embedded.events[0]._embedded.externalLinks.instagram,
+          //   youtube:
+          //     eventData._embedded.events[0]._embedded.externalLinks.youtube,
+          // },
         },
         {
+          eventID: eventData._embedded.events[1].id,
           name: eventData._embedded.events[1].name,
           city: eventData._embedded.events[1]._embedded.venues[0].city.name,
           date: eventData._embedded.events[1].dates.start.localDate,
@@ -125,6 +137,7 @@ export default function Spotify() {
             eventData._embedded.events[1]._embedded.venues[0].location,
         },
         {
+          eventID: eventData._embedded.events[2].id,
           name: eventData._embedded.events[2].name,
           city: eventData._embedded.events[2]._embedded.venues[0].city.name,
           date: eventData._embedded.events[2].dates.start.localDate,
@@ -133,6 +146,7 @@ export default function Spotify() {
             eventData._embedded.events[2]._embedded.venues[0].location,
         },
         {
+          eventID: eventData._embedded.events[3].id,
           name: eventData._embedded.events[3].name,
           city: eventData._embedded.events[3]._embedded.venues[0].city.name,
           date: eventData._embedded.events[3].dates.start.localDate,
@@ -141,6 +155,7 @@ export default function Spotify() {
             eventData._embedded.events[3]._embedded.venues[0].location,
         },
         {
+          eventID: eventData._embedded.events[4].id,
           name: eventData._embedded.events[4].name,
           city: eventData._embedded.events[4]._embedded.venues[0].city.name,
           date: eventData._embedded.events[4].dates.start.localDate,
@@ -149,6 +164,8 @@ export default function Spotify() {
             eventData._embedded.events[4]._embedded.venues[0].location,
         },
       ])
+      console.log('events', events)
+      console.log('events[0]', events[0])
     } else {
       setEvents([])
     }

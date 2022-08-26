@@ -4,5 +4,8 @@ import useAuth from '../../Context'
 export const Account = () => {
   const { userSpotifyID } = useAuth()
 
+  if (userSpotifyID === '') {
+    return null
+  }
   return <UserEventData />
 }

@@ -13,14 +13,14 @@ export default function UserEventData() {
 
   useEffect(() => {
     fetchUser()
-    // fetchEvents()
+    fetchEvents()
   }, [])
 
   useEffect(() => {
-    if (user) {
+    if (user && savedEvents) {
       setLoading(false)
     }
-  }, [user])
+  }, [user, savedEvents])
 
   const fetchUser = async () => {
     const result = await fetch(`http://localhost:3001/user/${userSpotifyID}`, {
@@ -29,15 +29,28 @@ export default function UserEventData() {
         'Content-Type': 'application/json',
       },
     })
-    console.log('result', result)
+
     const response = await result.json()
-    console.log('responseeee', response)
     setUser({
-      name: response[0].display_name,
-      email: response[0].email,
+      name: response.name,
+      email: response.email,
     })
-    console.log('user', user)
-    console.log('response', response)
+  }
+
+  const fetchEvents = async () => {
+    const result = await fetch(
+      `http://localhost:3001/events/${userSpotifyID}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    )
+    const response = await result.json()
+
+    console.log('events response', response)
+    setSavedEvents(response)
   }
 
   if (loading) {
@@ -47,34 +60,18 @@ export default function UserEventData() {
       <div>
         <p>Welcome {user.name}</p>
         <p>{user.email}</p>
+
+        <h1>Events you are interested in...</h1>
+        {savedEvents.map((event, index) => {
+          return (
+            <div>
+              <a href={event.url}>Event name: {event.event_name}</a>
+              <p>Date: {event.date}</p>
+              <p>City: {event.city}</p>
+            </div>
+          )
+        })}
       </div>
     )
   }
 }
-
-//   const fetchEvents = async () => {
-//     const result = await fetch(
-//       `http://localhost:3001/events/${userSpotifyID}`,
-//       {
-//         method: 'GET',
-//         headers: {
-//           'Content-Type': 'application/json',
-//         },
-//       }
-//     )
-//     const events = await result.json()
-//     return (
-//       <div>
-//         <h1>Events you are interested in...</h1>
-//         {events.map((event, index) => {
-//           return (
-//             <div>
-//               <a href={event.url}>Event name: {event.event_name}</a>
-//               <p>Date: {event.date}</p>
-//               <p>City: {event.city}</p>
-//             </div>
-//           )
-//         })}
-//       </div>
-//     )
-//   }

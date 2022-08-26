@@ -10,11 +10,13 @@ export const AuthorisedContext = React.createContext({
   accessToken: '',
   user: {},
   logout: () => {},
+  userSpotifyID: '',
 })
 
 export const AuthProvider = ({ children }) => {
   const [cookies, setCookie, removeCookie] = useCookies(['accessToken'])
   const [user, setUser] = useState(null)
+  const [userSpotifyID, setUserSpotifyID] = useState('')
 
   const accessToken = cookies.accessToken
 
@@ -48,14 +50,15 @@ export const AuthProvider = ({ children }) => {
       if (response.status <= 200) {
         const data = await response.json()
         setUser(data)
+        setUserSpotifyID(data.id)
       } else {
-        // removeCookie("accessToken")
         setUser(null)
       }
     } catch (error) {
       console.log('ERROR', error)
     }
   }
+
   const memoedValue = useMemo(
     () => ({
       login,
@@ -63,6 +66,7 @@ export const AuthProvider = ({ children }) => {
       isAuthenticated,
       accessToken,
       user,
+      userSpotifyID,
     }),
     [isAuthenticated]
   )

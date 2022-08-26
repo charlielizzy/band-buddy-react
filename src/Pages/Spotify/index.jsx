@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { ExtraInfoCard } from '../../Components/ExtraInfoCard'
+import { ExtraInfo } from '../../Components/ExtraInfo'
 import useAuth from '../../Context'
 
 export default function Spotify() {
@@ -57,7 +57,6 @@ export default function Spotify() {
       }
     )
     const data = await results.json()
-    console.log('data', data)
     setTopTracks([
       { name: data.tracks[0].name, url: data.tracks[0].external_urls.spotify },
       { name: data.tracks[1].name, url: data.tracks[1].external_urls.spotify },
@@ -158,7 +157,7 @@ export default function Spotify() {
   return (
     <div>
       {loading ? null : (
-        <ExtraInfoCard
+        <ExtraInfo
           trackName={data.trackName}
           artistName={data.artistName}
           albumName={data.albumName}

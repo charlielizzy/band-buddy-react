@@ -2,7 +2,7 @@ import React from 'react'
 import useAuth from '../../Context'
 import { Maps } from '../Maps'
 
-export const ExtraInfoCard = (props) => {
+export const ExtraInfo = (props) => {
   const { logout } = useAuth()
   console.log('artistID', props)
   return (

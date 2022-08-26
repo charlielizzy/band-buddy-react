@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { SongCard } from '../../Components/SongCard'
-import { ExtraInfoCard } from '../../Components/ExtraInfoCard'
+// import { ExtraInfo } from '../ExtraInfo'
 
 import { APIErrorCard } from '../../Components/APIError'
 import { RecordingButton } from '../../Components/RecordingButton'

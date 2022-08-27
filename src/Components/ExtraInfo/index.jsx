@@ -7,15 +7,6 @@ export const ExtraInfo = (props) => {
   const { logout } = useAuth()
   const { userSpotifyID } = useAuth()
 
-  const handleClick = (eventID) => {
-    if (savedEventsArray.includes(eventID)) {
-      //remove event from saved events database
-    } else {
-      //add event to saved events database
-    }
-    //run fetch saved events function again to update state with new array of saved events
-  }
-
   useEffect(() => {
     fetchSavedEvents()
   }, [])
@@ -37,6 +28,55 @@ export const ExtraInfo = (props) => {
     setsavedEventsArray(eventIDs)
   }
 
+  const handleClick = async (eventID, event_name, date, city, url) => {
+    console.log('clicked')
+    if (savedEventsArray.includes(eventID)) {
+      try {
+        const result = await fetch(
+          `http://localhost:3001/events/${userSpotifyID}`,
+          {
+            method: 'DELETE',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: {
+              event_id: eventID,
+            },
+          }
+        )
+        const response = await result.json()
+
+        return response
+      } catch (error) {
+        console.log('could not remove saved event')
+      }
+    } else {
+      try {
+        const result = await fetch(
+          `http://localhost:3001/events/${userSpotifyID}`,
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: {
+              event_name: event_name,
+              date: date,
+              city: city,
+              url: url,
+              event_id: eventID,
+            },
+          }
+        )
+        const response = await result.json()
+
+        return response
+      } catch (error) {
+        console.log('this event could not be saved', error)
+      }
+    }
+  }
+
   return (
     <div data-automation="extra-info-card" className="w-fit flex flex-col">
       <button
@@ -51,7 +91,7 @@ export const ExtraInfo = (props) => {
         className="tracking-widest m-3 p-3 bg-gray-900 rounded-lg text-xl text-white flex"
       >
         <img src={props.albumArt} className="w-60" />
-        <div id="top-track-text">
+        <div id="top-track-text" className="m-3">
           <p>Artist: {props.artistName}</p>
           <p>Song Name {props.trackName}</p>
           <p>Album: {props.albumName}</p>
@@ -129,7 +169,15 @@ export const ExtraInfo = (props) => {
                             ? `fill-red-500`
                             : null
                         }`}
-                        onClick={() => handleClick(event.eventID)}
+                        onClick={() =>
+                          handleClick(
+                            event.eventID,
+                            event.name,
+                            event.date,
+                            event.city,
+                            event.url
+                          )
+                        }
                       >
                         <path
                           stroke-linecap="round"

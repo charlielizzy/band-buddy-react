@@ -1,8 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { Account } from '../../Pages/Account'
-// import { useLocation } from 'react-router-dom'
-// import { useCookies } from 'react-cookie'
-// import { useNavigate } from 'react-router-dom'
 import useAuth from '../../Context'
 
 export default function UserEventData() {
@@ -48,8 +44,6 @@ export default function UserEventData() {
       }
     )
     const response = await result.json()
-
-    console.log('events response', response)
     setSavedEvents(response)
   }
 
@@ -58,8 +52,9 @@ export default function UserEventData() {
   } else {
     return (
       <div>
-        <p>Welcome {user.name}</p>
-        <p>{user.email}</p>
+        <p>Welcome to your Band Buddy account details!</p>
+        <p className="capitalize">Name: {user.name}</p>
+        <p>Username: {user.email}</p>
 
         <h1>Events you are interested in...</h1>
         {savedEvents.map((event, index) => {

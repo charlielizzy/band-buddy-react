@@ -9,7 +9,7 @@ export const Menu = (props) => {
       <button
         data-automation="get-more-info"
         onClick={() => navigate(`/track/${props.spotifyTrackID}`)}
-        className="m-5 p-1 bg-gray-900 text-align rounded-lg text-center text-3xl text-white"
+        className="3 p-1 bg-gray-900 text-align rounded-lg text-center text-xl text-white"
       >
         <h3>Get More Artist Info</h3>
       </button>

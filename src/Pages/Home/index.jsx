@@ -1,17 +1,12 @@
 import React, { useState } from 'react'
 import { SongCard } from '../../Components/SongCard'
-// import { ExtraInfo } from '../ExtraInfo'
-
 import { APIErrorCard } from '../../Components/APIError'
 import { RecordingButton } from '../../Components/RecordingButton'
 import { SongNotFound } from '../../Components/SongNotFound'
 import { Menu } from '../../Components/Menu'
 import { useCookies } from 'react-cookie'
 import { useNavigate } from 'react-router-dom'
-
 import useAuth from '../../Context'
-
-// import AuthCallback  from '../AuthCallback'
 
 export default function Home() {
   const [title, setTitle] = useState('')
@@ -31,13 +26,13 @@ export default function Home() {
   console.log('isAuthenticated', isAuthenticated())
   return (
     <div className="flex flex-col items-center bg-gradient-to-r from-green-300 via-blue-500 to-purple-600 w-screen h-screen">
-      <div className="tracking-wider m-5 p-3 bg-gray-900 text-align rounded-lg text-center w-60 text-3xl text-white font-bold">
+      <div className="tracking-wider m-3 p-3 bg-gray-900 text-align rounded-lg text-center w-60 text-xl text-white font-bold">
         <h1>Band Buddy</h1>
       </div>
 
       {isAuthenticated() ? (
         <button
-          className="hover:opacity-50 tracking-wider m-5 p-3 bg-gray-900 text-align rounded-lg text-center text-3xl text-white font-bold"
+          className="hover:opacity-50 tracking-wider m-3 p-3 bg-gray-900 text-align rounded-lg text-center text-xl text-white font-bold"
           data-automation="logout-button"
           onClick={() => logout()}
         >
@@ -47,7 +42,7 @@ export default function Home() {
         <div>
           <p>Please sign into your Spotify account to use Band Buddy</p>
           <button
-            className="hover:opacity-50 tracking-wider m-5 p-3 bg-gray-900 text-align rounded-lg text-center text-3xl text-white font-bold"
+            className="hover:opacity-50 tracking-wider m-3 p-3 bg-gray-900 text-align rounded-lg text-center text-xl text-white font-bold"
             data-automation="login-button"
             onClick={() => login()}
           >
@@ -57,7 +52,7 @@ export default function Home() {
       )}
 
       {cookies.accessToken !== undefined ? (
-        <div className="m-5 p-3 bg-gray-900 text-align rounded-lg text-center w-60 text-3xl text-white">
+        <div className="m-3 p-3 bg-gray-900 text-align rounded-lg text-center w-60 text-xl text-white">
           <RecordingButton
             setTitle={setTitle}
             setArtist={setArtist}

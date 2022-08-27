@@ -4,8 +4,8 @@ import { render } from '@testing-library/react'
 
 export const Maps = ({ coordinates }) => {
   const containerStyle = {
-    width: '400px',
-    height: '400px',
+    width: '280px',
+    height: '280px',
   }
 
   const center = {

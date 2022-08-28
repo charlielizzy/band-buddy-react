@@ -51,7 +51,7 @@ export default function UserEventData() {
     return <p>Loading</p>
   } else {
     return (
-      <div>
+      <div className="tracking-widest m-3 p-3 bg-gray-900 rounded-lg text-xl text-white">
         <p>Welcome to your Band Buddy account details!</p>
         <p className="capitalize">Name: {user.name}</p>
         <p>Username: {user.email}</p>

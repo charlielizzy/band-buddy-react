@@ -8,10 +8,7 @@ export const Account = () => {
     return null
   }
   return (
-    <div
-      data-automation="account"
-      className="tracking-widest m-3 p-3 bg-gray-900 rounded-lg text-xl text-white"
-    >
+    <div data-automation="account">
       <button
         className="hover:opacity-50 tracking-wider m-3 p-3 bg-gray-900 text-align rounded-lg text-center text-xl text-white font-bold"
         data-automation="logout-button"

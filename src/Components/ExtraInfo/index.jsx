@@ -25,6 +25,7 @@ export const ExtraInfo = (props) => {
     const eventIDs = response.map((event, index) => {
       return event.event_id
     })
+    console.log('eventIDs', eventIDs)
     setsavedEventsArray(eventIDs)
   }
 
@@ -32,6 +33,9 @@ export const ExtraInfo = (props) => {
     console.log('clicked')
     if (savedEventsArray.includes(eventID)) {
       try {
+        const data = {
+          event_id: eventID,
+        }
         const result = await fetch(
           `http://localhost:3001/events/${userSpotifyID}`,
           {
@@ -39,19 +43,23 @@ export const ExtraInfo = (props) => {
             headers: {
               'Content-Type': 'application/json',
             },
-            body: {
-              event_id: eventID,
-            },
+            body: JSON.stringify(data),
           }
         )
-        const response = await result.json()
-
-        return response
+        console.log('savedEventsArray - removed', savedEventsArray)
+        fetchSavedEvents()
       } catch (error) {
         console.log('could not remove saved event')
       }
     } else {
       try {
+        const data = {
+          event_name: event_name,
+          date: date,
+          city: city,
+          url: url,
+          event_id: eventID,
+        }
         const result = await fetch(
           `http://localhost:3001/events/${userSpotifyID}`,
           {
@@ -59,24 +67,18 @@ export const ExtraInfo = (props) => {
             headers: {
               'Content-Type': 'application/json',
             },
-            body: {
-              event_name: event_name,
-              date: date,
-              city: city,
-              url: url,
-              event_id: eventID,
-            },
+            body: JSON.stringify(data),
           }
         )
         const response = await result.json()
-
-        return response
+        console.log('savedEventsArray - added', savedEventsArray)
+        fetchSavedEvents()
       } catch (error) {
         console.log('this event could not be saved', error)
       }
     }
   }
-
+  console.log('savedEventsArray', savedEventsArray)
   return (
     <div data-automation="extra-info-card" className="w-fit flex flex-col">
       <button
@@ -111,7 +113,7 @@ export const ExtraInfo = (props) => {
         <p>Top Tracks</p>
         {props.topTracks.map((track, index) => {
           return (
-            <div>
+            <div key={index}>
               {index + 1}.
               <a href={track.url} target="_blank">
                 {track.name}
@@ -128,7 +130,7 @@ export const ExtraInfo = (props) => {
         <p>Related Artists: </p>
         {props.relatedArtists.map((relatedArtist, index) => {
           return (
-            <a href={relatedArtist.url} target="_blank">
+            <a href={relatedArtist.url} target="_blank" key={index}>
               {relatedArtist.name}
             </a>
           )
@@ -145,7 +147,7 @@ export const ExtraInfo = (props) => {
             <div id="events-container" className="flex">
               {props.events.map((event, index) => {
                 return (
-                  <div id="event" className="m-3">
+                  <div key={index} id="event" className="m-3">
                     <div
                       id="event-details"
                       className="flex justify-between items-center"
@@ -162,7 +164,7 @@ export const ExtraInfo = (props) => {
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
                         viewBox="0 0 24 24"
-                        stroke-width="1.5"
+                        strokeWidth="1.5"
                         stroke="currentColor"
                         className={`w-12 h-12 p-2 m-2 ${
                           savedEventsArray.includes(event.eventID)
@@ -180,8 +182,8 @@ export const ExtraInfo = (props) => {
                         }
                       >
                         <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
                           d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"
                         />
                       </svg>

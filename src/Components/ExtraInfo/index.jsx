@@ -197,9 +197,6 @@ export const ExtraInfo = (props) => {
           <p>There are no upcoming shows for this artist</p>
         )}
       </div>
-
-      <br />
-      <p>Social Media</p>
     </div>
   )
 }

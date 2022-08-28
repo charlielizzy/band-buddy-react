@@ -8,7 +8,6 @@ export default function Spotify() {
   const [topTracks, setTopTracks] = useState(null)
   const [relatedArtists, setRelatedArtists] = useState(null)
   const [events, setEvents] = useState(null)
-  const [socialMedia, setSocialMedia] = useState({})
   const [loading, setLoading] = useState(true)
   const [artistID, setArtistID] = useState()
   const { accessToken } = useAuth()
@@ -188,19 +187,6 @@ export default function Spotify() {
       } else {
         setEvents([])
       }
-
-      if (eventData._embedded.events[0]._embedded.externalLinks) {
-        //need to make it so that we only define social media if there are any social media links
-        setSocialMedia({
-          facebook:
-            eventData._embedded.events[0]._embedded.externalLinks.facebook,
-          instagram:
-            eventData._embedded.events[0]._embedded.externalLinks.instagram,
-          youtube:
-            eventData._embedded.events[0]._embedded.externalLinks.youtube,
-        })
-      }
-      console.log('socialMedia', socialMedia)
     } catch (error) {
       console.log('ticketmaster get artist events request failed')
     }

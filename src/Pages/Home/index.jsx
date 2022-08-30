@@ -7,7 +7,6 @@ import { SongNotFound } from '../../Components/SongNotFound'
 import { Menu } from '../../Components/Menu'
 import { useCookies } from 'react-cookie'
 import { useNavigate } from 'react-router-dom'
-
 import useAuth from '../../Context'
 
 export default function Home() {

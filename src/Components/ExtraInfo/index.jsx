@@ -13,7 +13,7 @@ export const ExtraInfo = (props) => {
 
   const fetchSavedEvents = async () => {
     const result = await fetch(
-      `http://localhost:3001/events/${userSpotifyID}`,
+      `${process.env.REACT_APP_BAND_BUDDY_API_URL}/events/${userSpotifyID}`,
       {
         method: 'GET',
         headers: {
@@ -37,7 +37,7 @@ export const ExtraInfo = (props) => {
           event_id: eventID,
         }
         const result = await fetch(
-          `http://localhost:3001/events/${userSpotifyID}`,
+          `${process.env.REACT_APP_BAND_BUDDY_API_URL}/events/${userSpotifyID}`,
           {
             method: 'DELETE',
             headers: {
@@ -61,7 +61,7 @@ export const ExtraInfo = (props) => {
           event_id: eventID,
         }
         const result = await fetch(
-          `http://localhost:3001/events/${userSpotifyID}`,
+          `${process.env.REACT_APP_BAND_BUDDY_API_URL}/events/${userSpotifyID}`,
           {
             method: 'POST',
             headers: {

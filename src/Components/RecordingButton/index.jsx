@@ -38,13 +38,11 @@ export const RecordingButton = (props) => {
               })
                 .then(async (res) => {
                   const { result } = await res.json()
-                  // console.log('result', result)
                   if (result === null) {
                     props.setSongNotFound(true)
                     props.setLoading(false)
                   } else {
                     const { artist, title } = result
-                    console.log('x', result)
                     const spotifyTrackID = result.spotify.id
                     props.setArtist(artist)
                     props.setTitle(title)

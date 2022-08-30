@@ -2,9 +2,8 @@ import React from 'react'
 import useAuth from '../../Context'
 import { Maps } from '../Maps'
 
-export const ExtraInfoCard = (props) => {
+export const ExtraInfo = (props) => {
   const { logout } = useAuth()
-  console.log('artistID', props)
   return (
     <div
       data-automation="extra-info-card"
@@ -39,7 +38,6 @@ export const ExtraInfoCard = (props) => {
       })}
       <br />
       <p>Related Artists: </p>
-      {console.log('props.relatedArtists', props.relatedArtists)}
       {props.relatedArtists.map((relatedArtist, index) => {
         return (
           <a href={relatedArtist.url} target="_blank">

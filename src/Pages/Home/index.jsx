@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { SongCard } from '../../Components/SongCard'
-import { ExtraInfoCard } from '../../Components/ExtraInfoCard'
+import { ExtraInfo } from '../../Components/ExtraInfo'
 import { APIErrorCard } from '../../Components/APIError'
 import { RecordingButton } from '../../Components/RecordingButton'
 import { SongNotFound } from '../../Components/SongNotFound'
@@ -9,8 +9,6 @@ import { useCookies } from 'react-cookie'
 import { useNavigate } from 'react-router-dom'
 
 import useAuth from '../../Context'
-
-// import AuthCallback  from '../AuthCallback'
 
 export default function Home() {
   const [title, setTitle] = useState('')
@@ -27,10 +25,14 @@ export default function Home() {
 
   const [spotifyTrackID, setSpotifyTrackID] = useState('')
 
-  console.log('isAuthenticated', isAuthenticated())
   return (
     <div className="flex bg-gray-900">
-      <div>
+      <div className="tracking-wider ml-80 p-2 text-align rounded-lg text-center w-60 text-9xl text-white font-bold">
+        <br />
+        <h1>BandBuddy</h1>
+        <br />
+      </div>
+      <div className="grid h-screen place-items-center">
         {isAuthenticated() ? (
           <div className="border-2">
             <button
@@ -44,7 +46,7 @@ export default function Home() {
         ) : (
           <div>
             <div>
-              <p className="m-5 p-3 bg-gray-900 text-align rounded-lg text-center w-60 text-3xl text-white">
+              <p className="m-5 bg-gray-900 text-align rounded-lg text-3xl  text-white">
                 Please sign into your Spotify account to use Band Buddy
               </p>
             </div>
@@ -59,10 +61,6 @@ export default function Home() {
         )}
       </div>
       <div className="flex flex-col items-center  w-screen h-screen">
-        <div className="tracking-wider m-5 p-3 text-align rounded-lg text-center w-60 text-9xl text-white font-bold">
-          <h1>BandBuddy</h1>
-        </div>
-
         {cookies.accessToken !== undefined ? (
           <div className="m-5 p-3 bg-gray-900 text-align rounded-lg text-center w-60 text-3xl text-white">
             <RecordingButton
@@ -87,8 +85,8 @@ export default function Home() {
           ) : null}
         </div>
       </div>
-      <div className="grayscale w-2/4 h-screen">
-        <div className=" h-screen object-contain bg-[url('https://i.pinimg.com/736x/a0/1e/5c/a01e5c1c64a0e7513bac055c016c2b2e--festival-style-festival-fashion.jpg')]"></div>
+      <div className="grayscale w-5/6 h-screen">
+        <div className=" h-screen w-50 object-contain bg-[url('https://i.pinimg.com/736x/a0/1e/5c/a01e5c1c64a0e7513bac055c016c2b2e--festival-style-festival-fashion.jpg')]"></div>
       </div>
     </div>
   )

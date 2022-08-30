@@ -19,12 +19,15 @@ export default function UserEventData() {
   }, [user, savedEvents])
 
   const fetchUser = async () => {
-    const result = await fetch(`http://localhost:3001/user/${userSpotifyID}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
+    const result = await fetch(
+      `${process.env.REACT_APP_BAND_BUDDY_API_URL}/user/${userSpotifyID}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    )
 
     const response = await result.json()
     setUser({
@@ -35,7 +38,7 @@ export default function UserEventData() {
 
   const fetchEvents = async () => {
     const result = await fetch(
-      `http://localhost:3001/events/${userSpotifyID}`,
+      `${process.env.REACT_APP_BAND_BUDDY_API_URL}/events/${userSpotifyID}`,
       {
         method: 'GET',
         headers: {

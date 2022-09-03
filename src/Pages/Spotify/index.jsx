@@ -193,7 +193,7 @@ export default function Spotify() {
   }
 
   return (
-    <div>
+    <div className="bg-gray-900 h-screen">
       {loading ? null : (
         <ExtraInfo
           trackName={data.trackName}

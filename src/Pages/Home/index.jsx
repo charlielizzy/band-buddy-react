@@ -25,7 +25,7 @@ export default function Home() {
   const [spotifyTrackID, setSpotifyTrackID] = useState('')
 
   return (
-    <div className="grid overflow-hidden grid-cols-2 grid-rows-1 gap-2 bg-gray-900">
+    <div className="grid overflow-scroll grid-cols-2 grid-rows-1 gap-2 bg-gray-900">
       <div className="flex flex-col h-screen">
         <div className="flex flex-col items-center w-7/8 tracking-wider text-align rounded-lg text-center text-9xl text-white font-bold">
           <br />

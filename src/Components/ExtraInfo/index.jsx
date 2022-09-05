@@ -211,10 +211,10 @@ export const ExtraInfo = (props) => {
 
       <div
         id="events-section"
-        className="flex w-screen m-3 p-3 bg-gray-900 rounded-lg text-white"
+        className="flex w-screen p-3 bg-gray-900 rounded-lg text-white"
       >
         {props.events.length > 0 ? (
-          <div className="flex flex-col items-center m-3 p-3 bg-gray-900 rounded-lg text-white">
+          <div className="flex flex-col items-center bg-gray-900 rounded-lg text-white">
             <h1 className="text-xl font-bold m-3">Upcoming shows:</h1>
             <div id="events-container" className="flex">
               {props.events.map((event, index) => {

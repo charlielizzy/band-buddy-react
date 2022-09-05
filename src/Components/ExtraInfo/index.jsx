@@ -106,89 +106,22 @@ export const ExtraInfo = (props) => {
           My Account
         </button>
       </div>
-
-      <div
-        id="extra-track-info"
-        className="tracking-widest m-3 p-3 bg-gray-900 rounded-lg text-xl text-white flex"
-      >
-        <img src={props.albumArt} className="w-60" />
-        <div id="top-track-text" className="m-3">
-          <p className="m-3">Artist: {props.artistName}</p>
-          <p className="m-3">Song Name {props.trackName}</p>
-          <p className="m-3">Album: {props.albumName}</p>
-          <a
-            href={`https://open.spotify.com/artist/${props.artistID}`}
-            target="_blank"
-            className="m-3 flex"
-          >
-            Listen to this artist on Spotify
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke-width="1.5"
-              stroke="currentColor"
-              class="w-6 h-6 ml-2"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M9 9l10.5-3m0 6.553v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 11-.99-3.467l2.31-.66a2.25 2.25 0 001.632-2.163zm0 0V2.25L9 5.25v10.303m0 0v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 01-.99-3.467l2.31-.66A2.25 2.25 0 009 15.553z"
-              />
-            </svg>
-          </a>
-        </div>
-      </div>
-
-      <div
-        id="top-tracks"
-        className="tracking-widest m-3 p-3 bg-gray-900 rounded-lg text-white"
-      >
-        <h1 className="text-xl font-bold m-3">
-          Listen to Top Tracks on Spotify
-        </h1>
-        {props.topTracks.map((track, index) => {
-          return (
-            <div className="text-lg flex" key={index}>
-              {index + 1}.
-              <a href={track.url} target="_blank" className="flex ml-2">
-                {track.name}
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke-width="1.5"
-                  stroke="currentColor"
-                  class="w-6 h-6 ml-2"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M9 9l10.5-3m0 6.553v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 11-.99-3.467l2.31-.66a2.25 2.25 0 001.632-2.163zm0 0V2.25L9 5.25v10.303m0 0v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 01-.99-3.467l2.31-.66A2.25 2.25 0 009 15.553z"
-                  />
-                </svg>
-              </a>
-            </div>
-          )
-        })}
-      </div>
-
-      <div
-        id="related-artists"
-        className="tracking-widest m-3 p-3 bg-gray-900 rounded-lg text-white"
-      >
-        <h1 className="text-xl font-bold m-3">
-          Listen to Related Artists on Spotify:
-        </h1>
-        {props.relatedArtists.map((relatedArtist, index) => {
-          return (
+      <div className="flex">
+        <div
+          id="extra-track-info"
+          className="tracking-widest m-3 p-3 bg-gray-900 rounded-lg text-xl text-white flex"
+        >
+          <img src={props.albumArt} className="w-60" />
+          <div id="top-track-text" className="m-3">
+            <p className="m-3">Artist: {props.artistName}</p>
+            <p className="m-3">Song Name {props.trackName}</p>
+            <p className="m-3">Album: {props.albumName}</p>
             <a
-              href={relatedArtist.url}
+              href={`https://open.spotify.com/artist/${props.artistID}`}
               target="_blank"
-              className="text-lg m-3 flex"
-              key={index}
+              className="m-3 flex"
             >
-              {relatedArtist.name}
+              Listen to this artist on Spotify
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -203,10 +136,78 @@ export const ExtraInfo = (props) => {
                   d="M9 9l10.5-3m0 6.553v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 11-.99-3.467l2.31-.66a2.25 2.25 0 001.632-2.163zm0 0V2.25L9 5.25v10.303m0 0v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 01-.99-3.467l2.31-.66A2.25 2.25 0 009 15.553z"
                 />
               </svg>
-              <br />
             </a>
-          )
-        })}
+          </div>
+        </div>
+
+        <div
+          id="top-tracks"
+          className="tracking-widest m-3 p-3 bg-gray-900 rounded-lg text-white"
+        >
+          <h1 className="text-xl font-bold m-3">
+            Listen to Top Tracks on Spotify
+          </h1>
+          {props.topTracks.map((track, index) => {
+            return (
+              <div className="text-lg flex" key={index}>
+                {index + 1}.
+                <a href={track.url} target="_blank" className="flex ml-2">
+                  {track.name}
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="w-6 h-6 ml-2"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M9 9l10.5-3m0 6.553v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 11-.99-3.467l2.31-.66a2.25 2.25 0 001.632-2.163zm0 0V2.25L9 5.25v10.303m0 0v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 01-.99-3.467l2.31-.66A2.25 2.25 0 009 15.553z"
+                    />
+                  </svg>
+                </a>
+              </div>
+            )
+          })}
+        </div>
+
+        <div
+          id="related-artists"
+          className="tracking-widest m-3 p-3 bg-gray-900 rounded-lg text-white"
+        >
+          <h1 className="text-xl font-bold m-3">
+            Listen to Related Artists on Spotify:
+          </h1>
+          {props.relatedArtists.map((relatedArtist, index) => {
+            return (
+              <a
+                href={relatedArtist.url}
+                target="_blank"
+                className="text-lg m-3 flex"
+                key={index}
+              >
+                {relatedArtist.name}
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="w-6 h-6 ml-2"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M9 9l10.5-3m0 6.553v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 11-.99-3.467l2.31-.66a2.25 2.25 0 001.632-2.163zm0 0V2.25L9 5.25v10.303m0 0v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 01-.99-3.467l2.31-.66A2.25 2.25 0 009 15.553z"
+                  />
+                </svg>
+                <br />
+              </a>
+            )
+          })}
+        </div>
       </div>
 
       <div

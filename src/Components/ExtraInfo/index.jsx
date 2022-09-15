@@ -13,6 +13,7 @@ export const ExtraInfo = (props) => {
     fetchSavedEvents()
   }, [])
   console.log(userSpotifyID)
+
   const fetchSavedEvents = async () => {
     const result = await fetch(
       `${process.env.REACT_APP_BAND_BUDDY_API_URL}/events/${userSpotifyID}`,
@@ -82,7 +83,7 @@ export const ExtraInfo = (props) => {
   }
   console.log('savedEventsArray', savedEventsArray)
   return (
-    <div data-automation="extra-info-card" className="w-fit flex flex-col ">
+    <div data-automation="extra-info-card" className="w-fit flex flex-col">
       <div>
         <button
           className="hover:opacity-50 tracking-wider w-fit m-3 p-3 bg-gray-900 text-align rounded-lg text-center text-xl text-white font-bold"
@@ -114,7 +115,7 @@ export const ExtraInfo = (props) => {
           <img src={props.albumArt} className="w-60" />
           <div id="top-track-text" className="m-3">
             <p className="m-3">Artist: {props.artistName}</p>
-            <p className="m-3">Song Name {props.trackName}</p>
+            <p className="m-3">Song Name: {props.trackName}</p>
             <p className="m-3">Album: {props.albumName}</p>
             <a
               href={`https://open.spotify.com/artist/${props.artistID}`}
@@ -126,13 +127,13 @@ export const ExtraInfo = (props) => {
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
-                stroke-width="1.5"
+                strokeWidth="1.5"
                 stroke="currentColor"
-                class="w-6 h-6 ml-2"
+                className="w-6 h-6 ml-2"
               >
                 <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                   d="M9 9l10.5-3m0 6.553v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 11-.99-3.467l2.31-.66a2.25 2.25 0 001.632-2.163zm0 0V2.25L9 5.25v10.303m0 0v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 01-.99-3.467l2.31-.66A2.25 2.25 0 009 15.553z"
                 />
               </svg>
@@ -157,13 +158,13 @@ export const ExtraInfo = (props) => {
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24"
-                    stroke-width="1.5"
+                    strokeWidth="1.5"
                     stroke="currentColor"
-                    class="w-6 h-6 ml-2"
+                    className="w-6 h-6 ml-2"
                   >
                     <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
                       d="M9 9l10.5-3m0 6.553v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 11-.99-3.467l2.31-.66a2.25 2.25 0 001.632-2.163zm0 0V2.25L9 5.25v10.303m0 0v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 01-.99-3.467l2.31-.66A2.25 2.25 0 009 15.553z"
                     />
                   </svg>
@@ -193,13 +194,13 @@ export const ExtraInfo = (props) => {
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
-                  stroke-width="1.5"
+                  strokeWidth="1.5"
                   stroke="currentColor"
-                  class="w-6 h-6 ml-2"
+                  className="w-6 h-6 ml-2"
                 >
                   <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                     d="M9 9l10.5-3m0 6.553v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 11-.99-3.467l2.31-.66a2.25 2.25 0 001.632-2.163zm0 0V2.25L9 5.25v10.303m0 0v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 01-.99-3.467l2.31-.66A2.25 2.25 0 009 15.553z"
                   />
                 </svg>
@@ -215,7 +216,7 @@ export const ExtraInfo = (props) => {
         className="flex w-screen p-3 bg-gray-900 rounded-lg text-white"
       >
         {props.events.length > 0 ? (
-          <div className="flex flex-col items-center bg-gray-900 rounded-lg text-white">
+          <div className="flex flex-col items-center bg-gray-900 rounded-lg text-white text-lg">
             <h1 className="text-xl font-bold m-3">Upcoming shows:</h1>
             <div id="events-container" className="flex">
               {props.events.map((event, index) => {
@@ -223,9 +224,9 @@ export const ExtraInfo = (props) => {
                   <div key={index} id="event" className="m-3">
                     <div
                       id="event-details"
-                      className="flex justify-between items-center text-lg"
+                      className="flex justify-between items-center"
                     >
-                      <div id="event-text">
+                      <div id="event-text" className="text-lg">
                         <a href={event.url} target="_blank">
                           {event.name}
                         </a>

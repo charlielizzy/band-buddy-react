@@ -62,7 +62,7 @@ export default function Home() {
         </div>
         <div className="flex flex-col items-center w-7/8">
           {cookies.accessToken !== undefined ? (
-            <div className="flex m-5 p-3 bg-gray-900 text-align rounded-lg text-center w-60 text-3xl text-white">
+            <div className="flex flex-col items-center m-5 p-3 bg-gray-900 text-align rounded-lg text-center w-60 text-3xl text-white">
               <RecordingButton
                 setTitle={setTitle}
                 setArtist={setArtist}

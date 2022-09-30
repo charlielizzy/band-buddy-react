@@ -3,7 +3,7 @@ import useAuth from '../../Context'
 
 export default function UserEventData() {
   const [loading, setLoading] = useState(true)
-  const [user, setUser] = useState({})
+  const [bandBuddyUser, setBandBuddyUser] = useState({})
   const [savedEvents, setSavedEvents] = useState([])
   const { userSpotifyID } = useAuth()
 
@@ -13,10 +13,10 @@ export default function UserEventData() {
   }, [])
 
   useEffect(() => {
-    if (user && savedEvents) {
+    if (bandBuddyUser && savedEvents) {
       setLoading(false)
     }
-  }, [user, savedEvents])
+  }, [bandBuddyUser, savedEvents])
 
   const fetchUser = async () => {
     const result = await fetch(
@@ -30,7 +30,7 @@ export default function UserEventData() {
     )
 
     const response = await result.json()
-    setUser({
+    setBandBuddyUser({
       name: response.name,
       email: response.email,
     })
@@ -56,8 +56,8 @@ export default function UserEventData() {
     return (
       <div className="tracking-widest m-3 p-3 bg-gray-900 rounded-lg text-xl text-white">
         <p>Welcome to your Band Buddy account details!</p>
-        <p className="capitalize">Name: {user.name}</p>
-        <p>Username: {user.email}</p>
+        <p className="capitalize">Name: {bandBuddyUser.name}</p>
+        <p>Username: {bandBuddyUser.email}</p>
 
         <h1>Events you are interested in...</h1>
         {savedEvents.map((event, index) => {

@@ -7,6 +7,7 @@ import { Account } from './Pages/Account'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 import { AuthProvider } from './Context'
+import CheckUser from './Pages/CheckUser'
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="/auth-callback" element={<AuthCallback />} />
           <Route path="/track/:spotifyTrackID" element={<Spotify />} />
           <Route path="/user/:userSpotifyID" element={<Account />} />
+          <Route path="/checkuser" element={<CheckUser/>}/>
         </Routes>
       </BrowserRouter>
     </AuthProvider>

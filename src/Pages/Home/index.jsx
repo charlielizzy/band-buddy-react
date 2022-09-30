@@ -18,7 +18,7 @@ export default function Home() {
   const [loading, setLoading] = useState(false)
   const [cookies, setCookie, removeCookie] = useCookies(['accessToken'])
 
-  const { login, isAuthenticated, logout } = useAuth()
+  const { login, isAuthenticated, logout, spotifyUser } = useAuth()
 
   let navigate = useNavigate()
 

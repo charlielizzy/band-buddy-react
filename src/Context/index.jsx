@@ -8,21 +8,21 @@ export const AuthorisedContext = React.createContext({
   login: () => {},
   isAuthenticated: () => {},
   accessToken: '',
-  user: {},
+  spotifyUser: {},
   logout: () => {},
   userSpotifyID: '',
 })
 
 export const AuthProvider = ({ children }) => {
   const [cookies, setCookie, removeCookie] = useCookies(['accessToken'])
-  const [user, setUser] = useState(null)
+  const [spotifyUser, setSpotifyUser] = useState(null)
   const [userSpotifyID, setUserSpotifyID] = useState('')
 
   const accessToken = cookies.accessToken
 
   useEffect(() => {
     if (accessToken !== undefined) {
-      fetchUser()
+      fetchSpotifyUser()
     }
   }, [accessToken])
 
@@ -39,7 +39,8 @@ export const AuthProvider = ({ children }) => {
   const isAuthenticated = () => {
     return cookies.accessToken !== undefined
   }
-  const fetchUser = async () => {
+
+  const fetchSpotifyUser = async () => {
     try {
       const response = await fetch('https://api.spotify.com/v1/me', {
         headers: {
@@ -49,10 +50,10 @@ export const AuthProvider = ({ children }) => {
       })
       if (response.status <= 200) {
         const data = await response.json()
-        setUser(data)
+        setSpotifyUser(data)
         setUserSpotifyID(data.id)
       } else {
-        setUser(null)
+        setSpotifyUser(null)
       }
     } catch (error) {
       console.log('ERROR', error)
@@ -65,7 +66,7 @@ export const AuthProvider = ({ children }) => {
       logout,
       isAuthenticated,
       accessToken,
-      user,
+      spotifyUser,
       userSpotifyID,
     }),
     [isAuthenticated]

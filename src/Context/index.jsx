@@ -11,6 +11,7 @@ export const AuthorisedContext = React.createContext({
   spotifyUser: {},
   logout: () => {},
   userSpotifyID: '',
+  fetchSpotifyUser: () => {},
 })
 
 export const AuthProvider = ({ children }) => {
@@ -21,9 +22,10 @@ export const AuthProvider = ({ children }) => {
   const accessToken = cookies.accessToken
 
   useEffect(() => {
-    if (accessToken !== undefined) {
-      fetchSpotifyUser()
-    }
+    // if (accessToken !== undefined) {
+    //   fetchSpotifyUser()
+    // }
+    console.log('userSpotifyID in context', userSpotifyID)
   }, [accessToken])
 
   const login = () => {
@@ -41,6 +43,7 @@ export const AuthProvider = ({ children }) => {
   }
 
   const fetchSpotifyUser = async () => {
+    console.log('fetchSpotifyUser hit')
     try {
       const response = await fetch('https://api.spotify.com/v1/me', {
         headers: {
@@ -48,10 +51,12 @@ export const AuthProvider = ({ children }) => {
           'Content-Type': 'application/json',
         },
       })
+      console.log('response', response)
       if (response.status <= 200) {
         const data = await response.json()
         setSpotifyUser(data)
         setUserSpotifyID(data.id)
+        console.log('data.id', data.id)
       } else {
         setSpotifyUser(null)
       }
@@ -68,6 +73,7 @@ export const AuthProvider = ({ children }) => {
       accessToken,
       spotifyUser,
       userSpotifyID,
+      fetchSpotifyUser,
     }),
     [isAuthenticated]
   )

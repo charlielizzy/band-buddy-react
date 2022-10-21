@@ -18,7 +18,8 @@ export default function Home() {
   const [loading, setLoading] = useState(false)
   const [cookies, setCookie, removeCookie] = useCookies(['accessToken'])
 
-  const { login, isAuthenticated, logout, spotifyUser } = useAuth()
+  const { login, isAuthenticated, logout, spotifyUser, userSpotifyID } =
+    useAuth()
 
   let navigate = useNavigate()
 
@@ -41,6 +42,13 @@ export default function Home() {
                 onClick={() => logout()}
               >
                 Logout
+              </button>
+              <button
+                className="hover:opacity-50 tracking-wider w-fit m-3 p-3 bg-gray-900 text-align rounded-lg text-center text-xl text-white font-bold"
+                data-automation="account-button"
+                onClick={() => navigate(`/user/${userSpotifyID}`)}
+              >
+                My Account
               </button>
             </div>
           ) : (

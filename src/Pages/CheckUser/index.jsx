@@ -4,11 +4,17 @@ import useAuth from '../../Context'
 
 export default function CheckUser() {
   let navigate = useNavigate()
-  const { spotifyUser, userSpotifyID } = useAuth()
+  const { spotifyUser, userSpotifyID, fetchSpotifyUser } = useAuth()
 
   useEffect(() => {
-    addUser(userSpotifyID)
+    fetchSpotifyUser()
+    console.log('userSpotifyID in check user', userSpotifyID)
   }, [])
+
+  useEffect(() => {
+    console.log('userSpotifyID inside adduser use effect', userSpotifyID)
+    addUser(userSpotifyID)
+  }, [userSpotifyID])
 
   const addUser = async (userSpotifyID) => {
     console.log('addUser triggered')
